@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body,
+html,
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.Pin-ColorContainer__Wrapper {
+  position: relative;
+  .Pin-Sketch__Wrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+  }
+}
+
+.Pin-Wrapper__Content {
+  height: 100%;
+  width: 100vw;
+}
+
+.Pin-Wrapper {
+  display: flex;
+}
+
+.Pin-PrimaryContent {
+  height: calc(100% - 64px);
+}
