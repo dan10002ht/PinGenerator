@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { TemplateContext } from "../contexts/TemplateContext";
 
 export default class TemplateRenderer {
@@ -18,13 +18,18 @@ export default class TemplateRenderer {
   }
   registerImageRenderer() {
     this.registerRenderer("image", (comp: any, componentIndex: number) => {
-      const { wrapperStyles, styles, imageUrl, imageStyles } = comp;
+      const { wrapperStyles, styles, imageUrl, imageStyles, type } = comp;
       return this.renderWithCondition(
         comp,
-        <TemplateContext.Consumer>
-          {({selectComponent, initTemplateRef}) => {
+        <TemplateContext.Consumer key={`${type}-${componentIndex}`}>
+          {({ selectComponent, initTemplateRef }) => {
             return (
-              <div onClick={() => selectComponent(componentIndex)} ref={(el) => initTemplateRef(el, componentIndex)} style={wrapperStyles} >
+              <div
+                className="Pin-Component__Image"
+                onClick={() => selectComponent(componentIndex)}
+                ref={(el) => initTemplateRef(el, componentIndex)}
+                style={wrapperStyles}
+              >
                 <div style={styles}>
                   <img style={imageStyles} src={imageUrl} />
                 </div>
@@ -37,15 +42,27 @@ export default class TemplateRenderer {
   }
   registerTextRenderer() {
     this.registerRenderer("text", (comp: any, componentIndex: number) => {
-      const { wrapperStyles, styles, textContent } = comp;
+      const { wrapperStyles, styles, textContent, type } = comp;
 
       return this.renderWithCondition(
         comp,
-        <TemplateContext.Consumer>
-          {({selectComponent, initTemplateRef}) => {
+        <TemplateContext.Consumer key={`${type}-${componentIndex}`}>
+          {({ selectComponent, initTemplateRef, onTextChange }) => {
+            let temp = textContent;
             return (
-              <div onClick={() => selectComponent(componentIndex)} ref={(el) => initTemplateRef(el, componentIndex)} style={wrapperStyles} >
-                <div style={styles}>{textContent}</div>
+              <div
+                className="Pin-Component__Text"
+                onClick={() => selectComponent(componentIndex)}
+                ref={(el) => initTemplateRef(el, componentIndex)}
+                style={wrapperStyles}
+              >
+                <div
+                  style={styles}
+                  contentEditable={true}
+                  onInput={(e) => (temp = e.currentTarget.textContent)}
+                  onBlur={() => onTextChange(temp)}
+                  dangerouslySetInnerHTML={{ __html: temp }}
+                ></div>
               </div>
             );
           }}
@@ -55,14 +72,19 @@ export default class TemplateRenderer {
   }
   registerBoxRenderer() {
     this.registerRenderer("box", (comp: any, componentIndex: number) => {
-      const { wrapperStyles, styles } = comp;
-    
+      const { wrapperStyles, styles, type } = comp;
+
       return this.renderWithCondition(
         comp,
-        <TemplateContext.Consumer>
-          {({selectComponent, initTemplateRef}) => {
+        <TemplateContext.Consumer key={`${type}-${componentIndex}`}>
+          {({ selectComponent, initTemplateRef }) => {
             return (
-              <div onClick={() => selectComponent(componentIndex)} ref={(el) => initTemplateRef(el, componentIndex)} style={wrapperStyles} >
+              <div
+                className="Pin-Component__Box"
+                onClick={() => selectComponent(componentIndex)}
+                ref={(el) => initTemplateRef(el, componentIndex)}
+                style={wrapperStyles}
+              >
                 <div style={styles}></div>
               </div>
             );

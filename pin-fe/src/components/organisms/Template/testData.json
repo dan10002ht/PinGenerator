@@ -4,6 +4,7 @@
     "components": [
       {
         "type": "text",
+        "name": "Text 1",
         "textContent": "{title}",
         "wrapperStyles": {
           "top": "1182.2px",
@@ -32,6 +33,7 @@
       },
       {
         "type": "box",
+        "name": "Box 1",
         "wrapperStyles": {
           "top": "1404.88px",
           "left": "-14.87px",
@@ -55,6 +57,7 @@
       },
       {
         "type": "image",
+        "name": "Image 1",
         "wrapperStyles": {
           "top": "-14.6341px",
           "left": "-9.75px",
@@ -85,6 +88,7 @@
       },
       {
         "type": "text",
+        "name": "Text 2",
         "textContent": "{short_url}",
         "wrapperStyles": {
           "top": "1415.1px",

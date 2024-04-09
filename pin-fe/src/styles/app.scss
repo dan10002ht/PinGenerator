@@ -37,3 +37,9 @@ html,
 .Pin-PrimaryContent {
   height: calc(100% - 64px);
 }
+
+.Pin-Component__Image,
+.Pin-Component__Text,
+.Pin-Component__Box {
+  position: absolute;
+}
