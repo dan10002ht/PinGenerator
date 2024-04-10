@@ -12,7 +12,7 @@ import {
 import React from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-const ElementLayerItem = ({ component }) => {
+const ElementLayerItem = ({ component, onClick }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
@@ -28,6 +28,7 @@ const ElementLayerItem = ({ component }) => {
   const open = Boolean(anchorEl);
   return (
     <Box
+      onClick={onClick}
       sx={{
         paddingInline: "10px",
         paddingBlock: "5px",

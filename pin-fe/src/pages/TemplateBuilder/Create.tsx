@@ -13,7 +13,6 @@ const Create = () => {
   const { input, setInput, handleChangeInput, handleChangeComponentSettings } =
     useInput(testData[0]);
 
-  console.log(input);
 
   const [selectedKey, setSelectedKey] = useState("");
   const [_, componentIndex] = selectedKey.split("-");
@@ -150,7 +149,6 @@ const Create = () => {
               }}
               size={{ width: 1000, height: 1500 }}
               scale={0.4}
-              onFocus={handleFocus}
               onTextChange={(val: string) =>
                 setInput((prev) => {
                   const components = [...prev.components];
