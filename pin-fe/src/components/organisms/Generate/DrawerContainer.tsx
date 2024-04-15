@@ -30,7 +30,7 @@ import useFetchApi from "../../../hooks/api/useFetchApi";
 const DrawerContainer = () => {
   const { showDrawer, handleCloseDrawer } =
     useContext<IDrawerContextValue>(DrawerContext);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [loading, setLoading] = useState(false);
   const [color, setColor] = useState<String>(commonColors[0]);
   const handlePickColor = (value: String) => setColor(value);
@@ -39,7 +39,6 @@ const DrawerContainer = () => {
   // const { data } = useFetchApi({
   //   url: "http://localhost:5000/pinterest/common?url=https://willtiptop.com",
   // });
-
 
   return (
     <Drawer

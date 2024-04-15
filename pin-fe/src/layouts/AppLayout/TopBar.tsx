@@ -14,7 +14,7 @@ import { DrawerContext } from "../../contexts/DrawerContext";
 import { IDrawerContextValue } from "../../interface";
 import { DRAWER_WIDTH } from "../../const";
 
-const pages = ["Generate", "Schedule", "Pricing"];
+const pages = ["Generate", "Schedule", "Templates", "Pricing"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function TopBar() {
