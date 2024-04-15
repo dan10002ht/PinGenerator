@@ -8,15 +8,16 @@ import useInput from "../../hooks/useInput";
 import Moveable from "react-moveable";
 import EditorPanelContextProvider from "../../contexts/EditorPanelContext";
 import { TYPE_TEXT, getElementByType } from "../../const/default";
+import GeneralOptions from "../../components/molecules/GeneralOptions/GeneralOptions";
 
 const Create = () => {
   const { input, setInput, handleChangeInput, handleChangeComponentSettings } =
     useInput(testData[0]);
 
-  console.log(input);
-
   const [selectedKey, setSelectedKey] = useState("");
   const [_, componentIndex] = selectedKey.split("-");
+
+  const selectedType = input.components[componentIndex]?.type ;
 
   const moveableRef = useRef<Moveable>(null);
   const templateRef = useRef<any>({});
@@ -107,6 +108,7 @@ const Create = () => {
         setComponentRef,
         setSelectedKey,
         handleAddElement,
+        selectedType
       }}
     >
       <WithMarginTop>
@@ -116,49 +118,57 @@ const Create = () => {
             sx={{
               display: "flex",
               justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
               flex: "1",
               backgroundColor: "#F8F8F8",
             }}
           >
-            <Moveable
-              ref={moveableRef}
-              target={currentSelectedElement}
-              draggable={true}
-              throttleDrag={1}
-              edgeDraggable={false}
-              startDragRotate={0}
-              throttleDragRotate={0}
-              resizable={true}
-              keepRatio={false}
-              throttleResize={0}
-              renderDirections={["nw", "n", "ne", "w", "e", "sw", "s", "se"]}
-              rotatable={true}
-              throttleRotate={1}
-              onDrag={handleDrag}
-              onDragEnd={handleDragEnd}
-              onResize={handleResize}
-              onResizeEnd={handleResizeEnd}
-              onRotate={handleRotate}
-            />
+            <Box sx={{ width: "100%", paddingTop: "10px", backgroundColor: "#DDDDDD" }}>
+              <Box sx={{minHeight: "45px", flexFlow: "wrap"}}>
+                <GeneralOptions/>
+              </Box>
+            </Box>
+            <Box sx={{ flex: "1", display: "flex", alignItems: "center" }}>
+              <Moveable
+                ref={moveableRef}
+                target={currentSelectedElement}
+                draggable={true}
+                throttleDrag={1}
+                edgeDraggable={false}
+                startDragRotate={0}
+                throttleDragRotate={0}
+                resizable={true}
+                keepRatio={false}
+                throttleResize={0}
+                renderDirections={["nw", "n", "ne", "w", "e", "sw", "s", "se"]}
+                rotatable={true}
+                throttleRotate={1}
+                onDrag={handleDrag}
+                onDragEnd={handleDragEnd}
+                onResize={handleResize}
+                onResizeEnd={handleResizeEnd}
+                onRotate={handleRotate}
+              />
 
-            <Template
-              template={input}
-              setComponentRef={setComponentRef}
-              onSelectComponent={(key: any) => {
-                setSelectedKey(key);
-                handleFocus(key);
-              }}
-              size={{ width: 1000, height: 1500 }}
-              scale={0.4}
-              onFocus={handleFocus}
-              onTextChange={(val: string) =>
-                setInput((prev) => {
-                  const components = [...prev.components];
-                  components[componentIndex]["textContent"] = val;
-                  return { ...prev, components };
-                })
-              }
-            />
+              <Template
+                template={input}
+                setComponentRef={setComponentRef}
+                onSelectComponent={(key: any) => {
+                  setSelectedKey(key);
+                  handleFocus(key);
+                }}
+                size={{ width: 1000, height: 1500 }}
+                scale={0.4}
+                onTextChange={(val: string) =>
+                  setInput((prev) => {
+                    const components = [...prev.components];
+                    components[componentIndex]["textContent"] = val;
+                    return { ...prev, components };
+                  })
+                }
+              />
+            </Box>
           </Box>
         </Box>
       </WithMarginTop>

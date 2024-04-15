@@ -24,7 +24,7 @@ export default function Template({
   const initTemplateRef = (el: any, index: number) => {
     setComponentRef(el, `${template.id}-${index}`);
   };
-  const selectComponent = (index) => {
+  const selectComponent = (index: number) => {
     onSelectComponent(`${template.id}-${index}`);
   };
 

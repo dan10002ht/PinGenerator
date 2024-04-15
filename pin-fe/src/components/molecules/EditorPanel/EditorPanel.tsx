@@ -18,7 +18,8 @@ import ElementLayerItem from "../ElementLayerItem";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const EditorPanel = () => {
-  const { handleAddElement, input, setInput } = useContext(EditorPanelContext);
+  const { handleAddElement, input, setInput, setSelectedKey } =
+    useContext(EditorPanelContext);
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -92,34 +93,39 @@ const EditorPanel = () => {
       <Divider />
       <Box sx={{ padding: "20px", display: "flex", flexDirection: "column" }}>
         <Typography variant="body1">Element layers</Typography>
-        <List>
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="droppable">
-              {(provided, snapshot) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {input.components.map((component: any, index: number) => (
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="droppable">
+            {(provided) => (
+              <List {...provided.droppableProps} ref={provided.innerRef}>
+                {input.components.map((component: any, index: number) => {
+                  const key = `${component.name}-${index}`
+                  return (
                     <Draggable
-                      key={`${component.name}-${index}`}
-                      draggableId={`${component.name}-${index}`}
+                      key={key}
+                      draggableId={key}
+                      index={index}
                     >
-                      {(provided, snapshot) => (
+                      {(provided2) => (
                         <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
+                          ref={provided2.innerRef}
+                          {...provided2.draggableProps}
+                          {...provided2.dragHandleProps}
                         >
                           <ListItem sx={{ padding: "0", marginBlock: "5px" }}>
-                            <ElementLayerItem component={component} />
+                            <ElementLayerItem
+                              component={component}
+                              onClick={() => setSelectedKey(`${input.id}-${index}`)}
+                            />
                           </ListItem>
                         </div>
                       )}
                     </Draggable>
-                  ))}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-        </List>
+                  );
+                })}
+              </List>
+            )}
+          </Droppable>
+        </DragDropContext>
       </Box>
     </Box>
   );
