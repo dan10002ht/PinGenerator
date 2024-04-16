@@ -20,7 +20,7 @@ export default function SizeNumberSettings({
       <div className="Pin-ChangeValue__Button" onClick={onDecrease}>
         -
       </div>
-      <Box>
+      <Box sx={{}}>
       <TextField
         size="small"
         sx={{
