@@ -4,15 +4,17 @@ import OptionButton from "../../atoms/OptionButton/OptionButton"
 export default function CommonOptions() {
   const buttons = [
     {
-      icon: Undo,
+      children: <Undo/>,
+      label: 'Undo',
       onClick: () => {console.log("undo")}
     },
     {
-      icon: Redo,
+      children: <Redo/>,
+      label: 'Redo',
       onClick: () => {console.log("redo")}
     },
   ]
   return <>
-    {buttons.map((x) => <OptionButton Icon={x.icon} onClick={x.onClick}/>)}
+    {buttons.map((x) => <OptionButton children={x.children} onClick={x.onClick}/>)}
   </>
 }

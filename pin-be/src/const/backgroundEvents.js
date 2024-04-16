@@ -1,0 +1,1 @@
+export const PUBLISH_PIN_EVENTS = 'publish_pin'

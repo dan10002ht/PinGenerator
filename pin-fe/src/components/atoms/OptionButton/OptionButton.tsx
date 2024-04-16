@@ -1,6 +1,12 @@
-import { Box, IconButton } from "@mui/material";
+import { Box, Button, IconButton } from "@mui/material";
 
-export default function OptionButton({ Icon, onClick, activatorModal }) {
+export default function OptionButton({
+  children,
+  onClick,
+  isCustomButton = false,
+  isCustomChildren = false,
+}) {
+  if(isCustomChildren) return <Box sx={{height: "35px"}}>{children}</Box>
   return (
     <Box
       sx={{
@@ -10,13 +16,16 @@ export default function OptionButton({ Icon, onClick, activatorModal }) {
         display: "flex",
         alignItems: "center",
         borderRadius: "8px",
-        position: "relative"
+        position: "relative",
       }}
     >
-      <IconButton onClick={onClick} sx={{width: "100%"}}>
-        <Icon />
-      </IconButton>
-      {activatorModal}
+      {!isCustomButton ? (
+        <IconButton onClick={onClick} sx={{ width: "100%" }}>
+          {children}
+        </IconButton>
+      ) : (
+        children
+      )}
     </Box>
   );
 }
