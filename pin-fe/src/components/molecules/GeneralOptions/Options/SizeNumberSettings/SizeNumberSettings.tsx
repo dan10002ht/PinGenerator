@@ -14,17 +14,20 @@ export default function SizeNumberSettings({
         display: "flex",
         backgroundColor: "white",
         alignItems: "center",
+        maxWidth: "50px"
       }}
     >
       <div className="Pin-ChangeValue__Button" onClick={onDecrease}>
         -
       </div>
+      <Box>
       <TextField
         size="small"
         sx={{
           height: "100%",
         }}
       />
+      </Box>
       <div className="Pin-ChangeValue__Button" onClick={onIncrease}>
         +
       </div>

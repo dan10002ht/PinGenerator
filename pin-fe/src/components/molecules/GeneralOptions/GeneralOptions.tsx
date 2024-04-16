@@ -82,6 +82,7 @@ const SpecificOptions = () => {
       children={x.children}
       onClick={x.onClick}
       isCustomButton={x.isCustomButton}
+      isCustomChildren={x.isCustomChildren}
     />
   ));
 };
