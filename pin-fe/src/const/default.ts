@@ -30,7 +30,7 @@ export const defaultTextElement = (index: number) => ({
     textDecoration: "underline",
     textTransform: "uppercase",
     width: "100%",
-    height: "100%"
+    height: "100%",
   },
 });
 
@@ -45,7 +45,6 @@ export const defaultBoxElement = (index: number) => ({
     overflow: "visible",
     position: "absolute",
     tranform: "none",
-    borderColor: "rgb(246, 11, 11)",
   },
   styles: {
     backgroundColor: "rgb(163, 177, 138)",

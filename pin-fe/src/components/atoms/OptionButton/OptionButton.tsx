@@ -22,7 +22,7 @@ export default function OptionButton({
         }}
       >
         {!isCustomButton ? (
-          <IconButton onClick={onClick} sx={{ width: "100%" }}>
+          <IconButton onClick={onClick} sx={{ width: "100%", padding: "4px" }}>
             {children}
           </IconButton>
         ) : (

@@ -14,11 +14,9 @@ const Create = () => {
   const { input, setInput, handleChangeInput, handleChangeComponentSettings } =
     useInput(testData[0]);
 
-
   const [selectedKey, setSelectedKey] = useState("");
   const [_, componentIndex] = selectedKey.split("-");
 
- 
   const handleChangeStyles = ({ key, value }) => {
     handleChangeComponentSettings({
       key: "styles",
@@ -28,8 +26,17 @@ const Create = () => {
       componentIndex,
     });
   };
+  const handleChangeWrapperStyles = ({ key, value }) => {
+    handleChangeComponentSettings({
+      key: "wrapperStyles",
+      value: {
+        [key]: value,
+      },
+      componentIndex,
+    });
+  };
 
-  const selectedComponent = input.components[componentIndex]
+  const selectedComponent = input.components[componentIndex];
 
   const moveableRef = useRef<Moveable>(null);
   const templateRef = useRef<any>({});
@@ -121,7 +128,8 @@ const Create = () => {
         setSelectedKey,
         handleAddElement,
         selectedComponent,
-        handleChangeStyles
+        handleChangeStyles,
+        handleChangeWrapperStyles,
       }}
     >
       <WithMarginTop>
@@ -137,9 +145,15 @@ const Create = () => {
               backgroundColor: "#F8F8F8",
             }}
           >
-            <Box sx={{ width: "100%", paddingTop: "10px", backgroundColor: "#DDDDDD" }}>
-              <Box sx={{minHeight: "45px", flexFlow: "wrap"}}>
-                <GeneralOptions/>
+            <Box
+              sx={{
+                width: "100%",
+                paddingTop: "10px",
+                backgroundColor: "#DDDDDD",
+              }}
+            >
+              <Box sx={{ minHeight: "45px", flexFlow: "wrap" }}>
+                <GeneralOptions />
               </Box>
             </Box>
             <Box sx={{ flex: "1", display: "flex", alignItems: "center" }}>
