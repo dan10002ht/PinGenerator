@@ -28,7 +28,10 @@
           "letterSpacing": "0",
           "lineHeight": "1.4",
           "textDecoration": "underline",
-          "textTransform": "uppercase"
+          "textTransform": "uppercase",
+          "width": "100%",
+          "height": "100%",
+          "justifyContent": "center"
         }
       },
       {
@@ -102,8 +105,6 @@
         },
         "styles": {
           "color": "rgb(0, 0, 0)",
-          "width": "361.22px",
-          "height": "76.3415px",
           "display": "inline-flex",
           "outline": "none",
           "direction": "ltr",
@@ -117,8 +118,10 @@
           "whiteSpace": "pre-wrap",
           "letterSpacing": "0px",
           "textTransform": "none",
-          "justifyContent": "center",
-          "textDecoration": "none"
+          "textDecoration": "none",
+          "width": "100%",
+          "height": "100%",
+          "justifyContent": "center"
         }
       }
     ]

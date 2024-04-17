@@ -1,4 +1,4 @@
-import "./SizeNumberSettings.scss"
+import "./SizeNumberSettings.scss";
 import { Box, TextField } from "@mui/material";
 
 export default function SizeNumberSettings({
@@ -14,20 +14,39 @@ export default function SizeNumberSettings({
         display: "flex",
         backgroundColor: "white",
         alignItems: "center",
-        maxWidth: "50px"
+        borderRadius: "4px",
+        overflow: "hidden",
       }}
     >
       <div className="Pin-ChangeValue__Button" onClick={onDecrease}>
         -
       </div>
-      <Box sx={{}}>
       <TextField
+        value={value}
+        onChange={onChange}
         size="small"
         sx={{
           height: "100%",
+          width: "80px",
+          ".MuiInputBase-root": {
+            height: "100%",
+            borderRadius: "0px",
+          },
+          input: {
+            padding: "0 4px",
+            fontSize: "12px",
+            textAlign: "center",
+            outline: "none",
+          },
+          fieldset: {
+            borderTop: "unset",
+            borderBottom: "unset",
+            borderRadius: "0",
+            padding: "0 4px",
+            borderWidth: "1px !important",
+          },
         }}
       />
-      </Box>
       <div className="Pin-ChangeValue__Button" onClick={onIncrease}>
         +
       </div>

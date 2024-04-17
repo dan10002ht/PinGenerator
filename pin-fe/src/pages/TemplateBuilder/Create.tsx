@@ -14,10 +14,22 @@ const Create = () => {
   const { input, setInput, handleChangeInput, handleChangeComponentSettings } =
     useInput(testData[0]);
 
+
   const [selectedKey, setSelectedKey] = useState("");
   const [_, componentIndex] = selectedKey.split("-");
 
-  const selectedType = input.components[componentIndex]?.type ;
+ 
+  const handleChangeStyles = ({ key, value }) => {
+    handleChangeComponentSettings({
+      key: "styles",
+      value: {
+        [key]: value,
+      },
+      componentIndex,
+    });
+  };
+
+  const selectedComponent = input.components[componentIndex]
 
   const moveableRef = useRef<Moveable>(null);
   const templateRef = useRef<any>({});
@@ -108,7 +120,8 @@ const Create = () => {
         setComponentRef,
         setSelectedKey,
         handleAddElement,
-        selectedType
+        selectedComponent,
+        handleChangeStyles
       }}
     >
       <WithMarginTop>

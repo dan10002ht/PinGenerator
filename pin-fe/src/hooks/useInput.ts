@@ -18,6 +18,6 @@ export default function useInput(defaultState = {}) {
       return { ...prev, components };
     });
   };
-
+  
   return { input, handleChangeInput, handleChangeComponentSettings, setInput };
 }

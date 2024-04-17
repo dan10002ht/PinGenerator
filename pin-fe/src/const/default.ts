@@ -29,6 +29,8 @@ export const defaultTextElement = (index: number) => ({
     lineHeight: "1.4",
     textDecoration: "underline",
     textTransform: "uppercase",
+    width: "100%",
+    height: "100%"
   },
 });
 
