@@ -9,17 +9,25 @@ import {
   FormatTextdirectionLToR,
   FormatTextdirectionRToL,
   FormatUnderlined,
-  Label,
+  Opacity,
+  PhotoSizeSelectLarge,
   TextFields,
   VerticalAlignBottom,
   VerticalAlignCenter,
   VerticalAlignTop,
 } from "@mui/icons-material";
-import { Box, Button, Slider, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  Slider,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useContext } from "react";
 import CommonOptions from "./CommonOptions";
 import { EditorPanelContext } from "../../../contexts/EditorPanelContext";
-import { TYPE_BOX, TYPE_TEXT } from "../../../const/default";
+import { TYPE_BOX, TYPE_IMAGE, TYPE_TEXT } from "../../../const/default";
 import OptionButton from "../../atoms/OptionButton/OptionButton";
 import SizeNumberSettings from "./Options/SizeNumberSettings/SizeNumberSettings";
 import PopoverButton from "./Options/ColorSettings/ColorSettings";
@@ -36,11 +44,18 @@ export default function GeneralOptions() {
 }
 
 const SpecificOptions = () => {
-  const { selectedComponent, handleChangeStyles, handleChangeWrapperStyles } =
-    useContext(EditorPanelContext);
+  const {
+    selectedComponent,
+    handleChangeStyles,
+    handleChangeWrapperStyles,
+    handleChangeImageStyles,
+  } = useContext(EditorPanelContext);
 
   const currentStyles = selectedComponent?.styles || {};
-  const currentWraperStyles = selectedComponent?.wrapperStyles || {};
+  console.log({ currentStyles });
+
+  const currentWrapperStyles = selectedComponent?.wrapperStyles || {};
+  const currentImageStyles = selectedComponent?.imageStyles || {};
   const textOptions = [
     {
       label: "Font Size",
@@ -59,7 +74,21 @@ const SpecificOptions = () => {
     },
     {
       label: "Text color",
-      children: <></>,
+      children: (
+        <PopoverButton
+          buttonChildren={<ButtonBox backgroundColor={currentStyles.color} />}
+        >
+          <SketchPicker
+            color={currentStyles.color}
+            onChange={(val: any) => {
+              handleChangeStyles({
+                key: "color",
+                value: val.hex,
+              });
+            }}
+          />
+        </PopoverButton>
+      ),
       isCustomButton: true,
     },
     {
@@ -260,7 +289,7 @@ const SpecificOptions = () => {
                       currentStyles.borderStyle === x ? "#9c27b0" : "#cccccc",
                     p: 0,
                   }}
-                  onChange={() => {
+                  onClick={() => {
                     handleChangeStyles({
                       key: "borderStyle",
                       value: x,
@@ -271,8 +300,366 @@ const SpecificOptions = () => {
                 </Button>
               ))}
             </Stack>
-            <Label></Label>
-            <Slider valueLabelDisplay="on" size="small" title="Border width" />
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+              sx={{ marginTop: "8px" }}
+            >
+              <Typography>Border width</Typography>
+              <TextField
+                value={parseFloat(currentStyles.borderWidth?.replace("px", ""))}
+                type={"number"}
+                onChange={(e) =>
+                  handleChangeStyles({
+                    key: "borderWidth",
+                    value: `${e.target.value}px`,
+                  })
+                }
+                sx={{
+                  height: "100%",
+                  width: "40px",
+                  ".MuiInputBase-root": {
+                    height: "100%",
+                    borderRadius: "0px",
+                  },
+                  input: {
+                    padding: "0 4px",
+                    fontSize: "12px",
+                    textAlign: "center",
+                    outline: "none",
+                  },
+                  fieldset: {
+                    borderRadius: "0",
+                    padding: "0 4px",
+                    borderWidth: "1px !important",
+                  },
+                }}
+              />
+            </Stack>
+            <Slider
+              onChange={(_, v) =>
+                handleChangeStyles({
+                  key: "borderWidth",
+                  value: `${v}px`,
+                })
+              }
+              value={parseFloat(currentStyles.borderWidth?.replace("px", ""))}
+              size="small"
+              title="Border width"
+            />
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+              sx={{ marginTop: "8px" }}
+            >
+              <Typography>Corner rounding</Typography>
+              <TextField
+                value={parseFloat(
+                  currentStyles.borderRadius?.replace("px", "")
+                )}
+                type={"number"}
+                onChange={(e) =>
+                  handleChangeStyles({
+                    key: "borderRadius",
+                    value: `${e.target.value}px`,
+                  })
+                }
+                sx={{
+                  height: "100%",
+                  width: "40px",
+                  ".MuiInputBase-root": {
+                    height: "100%",
+                    borderRadius: "0px",
+                  },
+                  input: {
+                    padding: "0 4px",
+                    fontSize: "12px",
+                    textAlign: "center",
+                    outline: "none",
+                  },
+                  fieldset: {
+                    borderRadius: "0",
+                    padding: "0 4px",
+                    borderWidth: "1px !important",
+                  },
+                }}
+              />
+            </Stack>
+            <Slider
+              onChange={(_, v) =>
+                handleChangeStyles({
+                  key: "borderRadius",
+                  value: `${v}px`,
+                })
+              }
+              value={parseFloat(currentStyles.borderRadius?.replace("px", ""))}
+              size="small"
+              title="Corner rounding"
+            />
+          </Box>
+        </PopoverButton>
+      ),
+    },
+  ];
+  const imageOptions = [
+    {
+      label: "Image cover",
+      children: <PhotoSizeSelectLarge />,
+    },
+    {
+      label: "Opacity",
+      children: (
+        <PopoverButton buttonChildren={<Opacity />}>
+          <Box sx={{ p: 2 }}>
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+              sx={{ marginTop: "8px" }}
+            >
+              <Typography>Opacity</Typography>
+              <TextField
+                value={currentStyles.opacity}
+                type={"number"}
+                onChange={(e) =>
+                  handleChangeStyles({
+                    key: "opacity",
+                    value: e.target.value,
+                  })
+                }
+                sx={{
+                  height: "100%",
+                  width: "40px",
+                  ".MuiInputBase-root": {
+                    height: "100%",
+                    borderRadius: "0px",
+                  },
+                  input: {
+                    padding: "0 4px",
+                    fontSize: "12px",
+                    textAlign: "center",
+                    outline: "none",
+                  },
+                  fieldset: {
+                    borderRadius: "0",
+                    padding: "0 4px",
+                    borderWidth: "1px !important",
+                  },
+                }}
+              />
+            </Stack>
+            <Slider
+              min={0}
+              max={1}
+              step={0.1}
+              onChange={(_, v) =>
+                handleChangeStyles({
+                  key: "opacity",
+                  value: v,
+                })
+              }
+              value={currentStyles.opacity}
+              size="small"
+              title="Corner rounding"
+            />
+          </Box>
+        </PopoverButton>
+      ),
+    },
+    {
+      label: "Image cover",
+      children: (
+        <PhotoSizeSelectLarge
+          color={
+            currentImageStyles.objectFit === "cover" ? "secondary" : "primary"
+          }
+        />
+      ),
+      onClick: () => {
+        const isCover = currentImageStyles.objectFit === "cover";
+        handleChangeImageStyles({
+          key: "objectFit",
+          value: isCover ? "contain" : "cover",
+        });
+      },
+    },
+    {
+      label: "Background color",
+      isCustomChildren: true,
+      children: (
+        <PopoverButton
+          buttonChildren={
+            <ButtonBox backgroundColor={currentStyles.backgroundColor} />
+          }
+        >
+          <SketchPicker
+            color={currentStyles.backgroundColor}
+            onChange={(val: any) => {
+              handleChangeStyles({
+                key: "backgroundColor",
+                value: val.hex,
+              });
+            }}
+          />
+        </PopoverButton>
+      ),
+    },
+    {
+      label: "Border color",
+      isCustomChildren: true,
+      children: (
+        <PopoverButton
+          buttonChildren={
+            <ButtonBox backgroundColor={currentStyles.borderColor} />
+          }
+        >
+          <SketchPicker
+            color={currentStyles.borderColor}
+            onChange={(val: any) => {
+              handleChangeStyles({
+                key: "borderColor",
+                value: val.hex,
+              });
+            }}
+          />
+        </PopoverButton>
+      ),
+    },
+    {
+      label: "Border styles",
+      isCustomChildren: true,
+      children: (
+        <PopoverButton buttonChildren={<BorderAll />}>
+          <Box sx={{ p: 2 }}>
+            <Stack direction="row" gap={"3px"}>
+              {["none", "solid", "dotted", "dashed"].map((x) => (
+                <Button
+                  sx={{
+                    textTransform: "none",
+                    border: "1px solid",
+                    borderColor:
+                      currentWrapperStyles.borderStyle === x
+                        ? "#9c27b0"
+                        : "#cccccc",
+                    p: 0,
+                  }}
+                  onClick={() => {
+                    handleChangeWrapperStyles({
+                      key: "borderStyle",
+                      value: x,
+                    });
+                  }}
+                >
+                  {x}
+                </Button>
+              ))}
+            </Stack>
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+              sx={{ marginTop: "8px" }}
+            >
+              <Typography>Border width</Typography>
+              <TextField
+                value={parseFloat(
+                  currentWrapperStyles.borderWidth?.replace("px", "")
+                )}
+                type={"number"}
+                onChange={(e) =>
+                  handleChangeWrapperStyles({
+                    key: "borderWidth",
+                    value: `${e.target.value}px`,
+                  })
+                }
+                sx={{
+                  height: "100%",
+                  width: "40px",
+                  ".MuiInputBase-root": {
+                    height: "100%",
+                    borderRadius: "0px",
+                  },
+                  input: {
+                    padding: "0 4px",
+                    fontSize: "12px",
+                    textAlign: "center",
+                    outline: "none",
+                  },
+                  fieldset: {
+                    borderRadius: "0",
+                    padding: "0 4px",
+                    borderWidth: "1px !important",
+                  },
+                }}
+              />
+            </Stack>
+            <Slider
+              onChange={(_, v) =>
+                handleChangeWrapperStyles({
+                  key: "borderWidth",
+                  value: `${v}px`,
+                })
+              }
+              value={parseFloat(
+                currentWrapperStyles.borderWidth?.replace("px", "")
+              )}
+              size="small"
+              title="Border width"
+            />
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+              sx={{ marginTop: "8px" }}
+            >
+              <Typography>Corner rounding</Typography>
+              <TextField
+                value={parseFloat(
+                  currentWrapperStyles.borderRadius?.replace("px", "")
+                )}
+                type={"number"}
+                onChange={(e) =>
+                  handleChangeWrapperStyles({
+                    key: "borderRadius",
+                    value: `${e.target.value}px`,
+                  })
+                }
+                sx={{
+                  height: "100%",
+                  width: "40px",
+                  ".MuiInputBase-root": {
+                    height: "100%",
+                    borderRadius: "0px",
+                  },
+                  input: {
+                    padding: "0 4px",
+                    fontSize: "12px",
+                    textAlign: "center",
+                    outline: "none",
+                  },
+                  fieldset: {
+                    borderRadius: "0",
+                    padding: "0 4px",
+                    borderWidth: "1px !important",
+                  },
+                }}
+              />
+            </Stack>
+            <Slider
+              onChange={(_, v) =>
+                handleChangeWrapperStyles({
+                  key: "borderRadius",
+                  value: `${v}px`,
+                })
+              }
+              value={parseFloat(
+                currentWrapperStyles.borderRadius?.replace("px", "")
+              )}
+              size="small"
+              title="Corner rounding"
+            />
           </Box>
         </PopoverButton>
       ),
@@ -284,5 +671,7 @@ const SpecificOptions = () => {
       return textOptions.map((x) => <OptionButton {...x} />);
     case TYPE_BOX:
       return boxOptions.map((x) => <OptionButton {...x} />);
+    case TYPE_IMAGE:
+      return imageOptions.map((x) => <OptionButton {...x} />);
   }
 };

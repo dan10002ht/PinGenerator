@@ -36,6 +36,16 @@ const Create = () => {
     });
   };
 
+  const handleChangeImageStyles = (key, value) => {
+    handleChangeComponentSettings({
+      key: "imageStyles",
+      value: {
+        [key]: value,
+      },
+      componentIndex,
+    });
+  };
+
   const selectedComponent = input.components[componentIndex];
 
   const moveableRef = useRef<Moveable>(null);
@@ -130,6 +140,7 @@ const Create = () => {
         selectedComponent,
         handleChangeStyles,
         handleChangeWrapperStyles,
+        handleChangeImageStyles,
       }}
     >
       <WithMarginTop>
