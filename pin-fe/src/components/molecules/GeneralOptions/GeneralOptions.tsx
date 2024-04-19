@@ -33,6 +33,7 @@ import SizeNumberSettings from "./Options/SizeNumberSettings/SizeNumberSettings"
 import PopoverButton from "./Options/ColorSettings/ColorSettings";
 import ButtonBox from "../../atoms/ButtonBox/ButtonBox";
 import { SketchPicker } from "react-color";
+import SliderWithInput from "../SliderWithInput";
 
 export default function GeneralOptions() {
   return (
@@ -413,56 +414,18 @@ const SpecificOptions = () => {
       children: (
         <PopoverButton buttonChildren={<Opacity />}>
           <Box sx={{ p: 2 }}>
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-              sx={{ marginTop: "8px" }}
-            >
-              <Typography>Opacity</Typography>
-              <TextField
-                value={currentStyles.opacity}
-                type={"number"}
-                onChange={(e) =>
-                  handleChangeStyles({
-                    key: "opacity",
-                    value: e.target.value,
-                  })
-                }
-                sx={{
-                  height: "100%",
-                  width: "40px",
-                  ".MuiInputBase-root": {
-                    height: "100%",
-                    borderRadius: "0px",
-                  },
-                  input: {
-                    padding: "0 4px",
-                    fontSize: "12px",
-                    textAlign: "center",
-                    outline: "none",
-                  },
-                  fieldset: {
-                    borderRadius: "0",
-                    padding: "0 4px",
-                    borderWidth: "1px !important",
-                  },
-                }}
-              />
-            </Stack>
-            <Slider
+            <SliderWithInput
+              label="Opacity"
+              value={currentStyles.opacity}
               min={0}
               max={1}
               step={0.1}
-              onChange={(_, v) =>
+              handleChangeValue={(val: any) =>
                 handleChangeStyles({
                   key: "opacity",
-                  value: v,
+                  value: val,
                 })
               }
-              value={currentStyles.opacity}
-              size="small"
-              title="Corner rounding"
             />
           </Box>
         </PopoverButton>
