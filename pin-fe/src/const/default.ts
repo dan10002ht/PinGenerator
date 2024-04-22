@@ -67,7 +67,7 @@ export const defaultImageElement = (index: number) => ({
     width: "1019.51px",
     height: "1160.98px",
     zIndex: 0,
-    overflow: "visible",
+    overflow: "hidden",
     position: "absolute",
     transform: "none",
   },

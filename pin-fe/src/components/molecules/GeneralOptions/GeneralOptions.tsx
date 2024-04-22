@@ -19,6 +19,7 @@ import {
 import {
   Box,
   Button,
+  Paper,
   Slider,
   Stack,
   TextField,
@@ -34,6 +35,8 @@ import PopoverButton from "./Options/ColorSettings/ColorSettings";
 import ButtonBox from "../../atoms/ButtonBox/ButtonBox";
 import { SketchPicker } from "react-color";
 import SliderWithInput from "../SliderWithInput";
+import ModalWrapper from "../ModalWrapper";
+import Dropzone from "../Dropzone";
 
 export default function GeneralOptions() {
   return (
@@ -430,6 +433,21 @@ const SpecificOptions = () => {
           </Box>
         </PopoverButton>
       ),
+    },
+    {
+      label: "Upload image",
+      children: (
+        <ModalWrapper
+          activator={
+            <Button sx={{ backgroundColor: "white" }}>Upload image</Button>
+          }
+        >
+          <Box>
+            <Dropzone />
+          </Box>
+        </ModalWrapper>
+      ),
+      isCustomChildren: true,
     },
     {
       label: "Image cover",
