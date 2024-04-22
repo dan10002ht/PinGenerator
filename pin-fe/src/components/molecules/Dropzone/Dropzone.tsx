@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const baseStyle = {
   flex: 1,
@@ -55,7 +53,7 @@ function Dropzone() {
     isDragAccept,
     isDragReject,
     acceptedFiles,
-  } = useDropzone();
+  } = useDropzone({ multiple: false });
 
   const [imageSrc, setImageSrc] = useState([]);
 
@@ -69,7 +67,6 @@ function Dropzone() {
       );
       setImageSrc(srcs);
     };
-
     fetchFileSrcs();
   }, [acceptedFiles]);
 
@@ -82,22 +79,26 @@ function Dropzone() {
     }),
     [isFocused, isDragAccept, isDragReject]
   );
+  //   const hasImage = imageSrc.length > 0;
 
   return (
     <div className="container">
-      <div {...getRootProps({ style })}>
+      <div
+        {...getRootProps({
+          style: { ...style, display: imageSrc.length ? "none" : "flex" },
+        })}
+      >
         <input {...getInputProps()} />
         <p>Drag 'n' drop some files here, or click to select files</p>
       </div>
-      {imageSrc.length > 0 && (
-        <Carousel>
-          {imageSrc.map((src) => (
-            <div style={{ width: "100px", height: "100px" }}>
-              <img style={{ objectFit: "cover" }} src={src} alt="" />
-            </div>
-          ))}
-        </Carousel>
-      )}
+
+      <div style={{ marginBottom: "16px" }}>
+        <img
+          style={{ objectFit: "cover", width: "100%" }}
+          src={imageSrc[0]}
+          alt=""
+        />
+      </div>
     </div>
   );
 }

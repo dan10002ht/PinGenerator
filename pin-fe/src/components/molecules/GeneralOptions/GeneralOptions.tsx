@@ -19,6 +19,7 @@ import {
 import {
   Box,
   Button,
+  ButtonGroup,
   Paper,
   Slider,
   Stack,
@@ -441,6 +442,8 @@ const SpecificOptions = () => {
           activator={
             <Button sx={{ backgroundColor: "white" }}>Upload image</Button>
           }
+          primaryAction={{ content: "Confirm", onAction: () => {} }}
+          secondaryAction={{ content: "Cancel", onAction: () => {} }}
         >
           <Box>
             <Dropzone />
