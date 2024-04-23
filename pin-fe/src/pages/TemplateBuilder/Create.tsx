@@ -9,10 +9,15 @@ import Moveable from "react-moveable";
 import EditorPanelContextProvider from "../../contexts/EditorPanelContext";
 import { TYPE_TEXT, getElementByType } from "../../const/default";
 import GeneralOptions from "../../components/molecules/GeneralOptions/GeneralOptions";
+import useCreateApi from "../../hooks/api/useCreateApi";
 
 const Create = () => {
   const { input, setInput, handleChangeInput, handleChangeComponentSettings } =
     useInput(testData[0]);
+
+  const { creating, handleCreate } = useCreateApi({
+    url: "/template",
+  });
 
   const [selectedKey, setSelectedKey] = useState("");
   const [_, componentIndex] = selectedKey.split("-");

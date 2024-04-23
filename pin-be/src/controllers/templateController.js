@@ -11,20 +11,58 @@
 //   }
 // };
 
-export const getOne = async (req, res) => {
+import {create, getAll, getById} from '../repositories/templateRepository';
+
+// export const getOne = async (req, res) => {
+//   try {
+//     const template = await db.template.get(req.params.templateId);
+//     return res.status(200).json(template);
+//   } catch (e) {
+//     return res.status(500).json(e.message);
+//   }
+// };
+
+// export const getAll = async (req, res) => {
+//   try {
+//     const templates = await db.template.get();
+//     return res.status(200).json(templates);
+//   } catch (e) {
+//     return res.status(500).json(e.message);
+//   }
+// };
+
+export const getListTemplate = async (req, res) => {
   try {
-    const template = await db.template.get(req.params.templateId);
-    return res.status(200).json(template);
+    const data = await getAll();
+    return res.status(200).json({success: true, data});
   } catch (e) {
-    return res.status(500).json(e.message);
+    return res.status(500).json({error: e.message, success: false});
   }
 };
 
-export const getAll = async (req, res) => {
+export const createTemplate = async (req, res) => {
   try {
-    const templates = await db.template.get();
-    return res.status(200).json(templates);
+    const {data} = req.body;
+    const docId = await create(data);
+    return res.status(200).json({success: true, data: docId});
   } catch (e) {
-    return res.status(500).json(e.message);
+    console.log(e.message);
+    return res.status(500).json({error: e.message, success: false});
   }
+};
+
+export const getTemplate = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const data = await getById(id);
+    return res.status(200).json({success: true, data});
+  } catch (e) {
+    return res.status(500).json({error: e.message, success: false});
+  }
+};
+
+export const updateTemplate = async (req, res) => {
+  try {
+    const {id} = req.params;
+  } catch (e) {}
 };

@@ -7,7 +7,7 @@ export async function api({
   params = {},
   options = {},
   clientConfig = {
-    baseURL: "/apiSa",
+    baseURL: "http://localhost:3000",
     timeout: 60000,
   },
 }) {

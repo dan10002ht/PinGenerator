@@ -1,7 +1,17 @@
 import db from '../const/db';
-import formatDateFields from '../helpers/formatDateFields';
+import {prepareDoc} from '../helpers/prepare';
 
 const collection = db.collection('pinQueue');
+
+export const getById = async id => {
+  const doc = await collection.doc(id).get();
+  return prepareDoc({doc});
+};
+
+export const getAll = async () => {
+  const docs = await collection.get();
+  return docs.docs.map(doc => prepareDoc({doc}));
+};
 
 export const create = async data => {
   const doc = await collection.add({...data, createdAt: new Date()});
