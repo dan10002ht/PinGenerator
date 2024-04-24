@@ -1,7 +1,7 @@
 import db from '../const/db';
 import {prepareDoc} from '../helpers/prepare';
 
-const collection = db.collection('pinQueue');
+const collection = db.collection('template');
 
 export const getById = async id => {
   const doc = await collection.doc(id).get();
