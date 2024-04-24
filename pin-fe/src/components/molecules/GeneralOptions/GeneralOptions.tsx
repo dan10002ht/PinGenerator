@@ -19,8 +19,6 @@ import {
 import {
   Box,
   Button,
-  ButtonGroup,
-  Paper,
   Slider,
   Stack,
   TextField,
@@ -57,7 +55,6 @@ const SpecificOptions = () => {
   } = useContext(EditorPanelContext);
 
   const currentStyles = selectedComponent?.styles || {};
-  console.log({ currentStyles });
 
   const currentWrapperStyles = selectedComponent?.wrapperStyles || {};
   const currentImageStyles = selectedComponent?.imageStyles || {};

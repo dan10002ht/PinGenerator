@@ -12,6 +12,7 @@ export default function useCreateApi({
   errorMsg = "Create failed",
 }) {
   const [creating, setCreating] = useState(defaultState);
+
   const handleCreate = async (data = {}) => {
     try {
       setCreating(true);

@@ -18,8 +18,15 @@ import ElementLayerItem from "../ElementLayerItem";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const EditorPanel = () => {
-  const { handleAddElement, input, setInput, setSelectedKey } =
-    useContext(EditorPanelContext);
+  const {
+    handleAddElement,
+    input,
+    setInput,
+    setSelectedKey,
+    creating,
+    handleCreate,
+    handleChangeInput,
+  } = useContext(EditorPanelContext);
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -48,12 +55,24 @@ const EditorPanel = () => {
         }}
       >
         <Box paddingBlockEnd="20px">
-          <Button fullWidth variant="contained" color="primary">
+          <Button
+            onClick={() => handleCreate(input)}
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={creating}
+          >
             SAVE TEMPLATE
           </Button>
         </Box>
         <Typography variant="body1">Template name</Typography>
-        <TextField label="" hiddenLabel={true} variant="filled" />
+        <TextField
+          label=""
+          hiddenLabel={true}
+          variant="filled"
+          value={input.templateName}
+          onChange={(e) => handleChangeInput("templateName", e.target.value)}
+        />
       </Box>
       <Divider />
       <Box sx={{ padding: "20px", display: "flex", flexDirection: "column" }}>
@@ -98,13 +117,9 @@ const EditorPanel = () => {
             {(provided) => (
               <List {...provided.droppableProps} ref={provided.innerRef}>
                 {input.components.map((component: any, index: number) => {
-                  const key = `${component.name}-${index}`
+                  const key = `${component.name}-${index}`;
                   return (
-                    <Draggable
-                      key={key}
-                      draggableId={key}
-                      index={index}
-                    >
+                    <Draggable key={key} draggableId={key} index={index}>
                       {(provided2) => (
                         <div
                           ref={provided2.innerRef}
@@ -114,7 +129,9 @@ const EditorPanel = () => {
                           <ListItem sx={{ padding: "0", marginBlock: "5px" }}>
                             <ElementLayerItem
                               component={component}
-                              onClick={() => setSelectedKey(`${input.id}-${index}`)}
+                              onClick={() =>
+                                setSelectedKey(`${input.id}-${index}`)
+                              }
                             />
                           </ListItem>
                         </div>

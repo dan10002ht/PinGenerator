@@ -146,6 +146,8 @@ const Create = () => {
         handleChangeStyles,
         handleChangeWrapperStyles,
         handleChangeImageStyles,
+        creating,
+        handleCreate,
       }}
     >
       <WithMarginTop>
