@@ -15,6 +15,7 @@ export const getAll = async () => {
 
 export const create = async data => {
   const doc = await collection.add({...data, createdAt: new Date()});
+  
   return doc.id;
 };
 

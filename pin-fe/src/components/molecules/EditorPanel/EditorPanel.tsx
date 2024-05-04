@@ -56,7 +56,12 @@ const EditorPanel = () => {
       >
         <Box paddingBlockEnd="20px">
           <Button
-            onClick={() => handleCreate(input)}
+            onClick={() => {
+              const html = document.querySelector(
+                ".Pin-Template__DesignContainer"
+              );
+              handleCreate({ ...input, html });
+            }}
             fullWidth
             variant="contained"
             color="primary"
