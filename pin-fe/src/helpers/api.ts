@@ -1,5 +1,14 @@
 import axios from "axios";
 
+/**
+ *
+ * @param url
+ * @param data
+ * @param method
+ * @param params
+ * @param options
+ * @param clientConfig
+ */
 export async function api({
   url,
   data = {},
@@ -7,9 +16,17 @@ export async function api({
   params = {},
   options = {},
   clientConfig = {
-    baseURL: "http://localhost:5000/api",
+    baseURL: "http://localhost:5002/api",
     timeout: 60000,
   },
+}: {
+    url: string,
+    data: object,
+    method: string,
+    params: object,
+    options: object,
+    clientConfig: object,
+
 }) {
   const client = axios.create(clientConfig);
   //   const idToken = await auth.currentUser.getIdToken(false);
@@ -29,9 +46,10 @@ export async function api({
     .then((res) => res.data);
 }
 
+
 const getAuthenticatedFetchApi = () => {
   const fetchFunction = api;
-  return async (uri: string, options = {}) => {
+  return async (uri: string, options: object = {}) => {
     return fetchFunction({
       url: uri,
       data: options.body,

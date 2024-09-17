@@ -14,6 +14,13 @@ export default function useFetchApi({
   presentDataFunc = null,
   method = "GET",
   postData = {},
+}: {
+  url: string;
+  defaultData?: any;
+  initLoad: boolean;
+  presentDataFunc: any;
+  method: string;
+  postData: object;
 }) {
   const [loading, setLoading] = useState(initLoad);
   const [data, setData] = useState(defaultData);
@@ -39,7 +46,7 @@ export default function useFetchApi({
           ? presentDataFunc(resp.data)
           : resp.data;
         if (!isEmpty(defaultData)) {
-          setData((prev) => {
+          setData((prev: any) => {
             return { ...prev, ...newData };
           });
         } else {
@@ -71,7 +78,7 @@ export default function useFetchApi({
           ? presentDataFunc(resp.data)
           : resp.data;
         if (!isEmpty(defaultData)) {
-          setData((prev) => {
+          setData((prev: any) => {
             return { ...prev, ...newData };
           });
         } else {

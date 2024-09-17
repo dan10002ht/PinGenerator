@@ -10,6 +10,15 @@ export default function useCreateApi({
   errorCallback = (_p) => {},
   successMsg = "Create successfully",
   errorMsg = "Create failed",
+}: {
+  url: string;
+  defaultState: any;
+  fullResp: boolean;
+  catchError: boolean;
+  successCallback: () => any;
+  errorCallback: () => any;
+  successMsg: string;
+  errorMsg: string;
 }) {
   const [creating, setCreating] = useState(defaultState);
 
