@@ -1,12 +1,12 @@
-import React, { createContext, useState } from "react";
-import { IContextProvider, IDrawerContextValue } from "../interface";
-import { useLocation } from "react-router-dom";
+import {createContext, useState} from 'react';
+import {IContextProvider, IDrawerContextValue} from '../interface';
+import {useLocation} from 'react-router-dom';
 
 export const DrawerContext = createContext<IDrawerContextValue>({});
 
-export const DrawerContextProvider = ({ children }: IContextProvider) => {
+export const DrawerContextProvider = ({children}: IContextProvider) => {
   const location = useLocation();
-  const hasDrawer = ["/generate"].includes(location.pathname);
+  const hasDrawer = ['/generate'].includes(location.pathname);
   const [showDrawer, setShowDrawer] = useState(false);
   const handleShowDrawer = () => {
     setShowDrawer(true);
@@ -21,9 +21,7 @@ export const DrawerContextProvider = ({ children }: IContextProvider) => {
     handleShowDrawer,
     handleCloseDrawer,
   };
-  return (
-    <DrawerContext.Provider value={value}>{children}</DrawerContext.Provider>
-  );
+  return <DrawerContext.Provider value={value}>{children}</DrawerContext.Provider>;
 };
 
 export default DrawerContextProvider;

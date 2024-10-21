@@ -1,12 +1,15 @@
-import "./styles/app.scss";
-import Routing from "./routes/Routing";
-import { ThemeProvider, createTheme } from "@mui/material";
+import './styles/app.scss';
+import Routing from './routes/Routing';
+import {ThemeProvider, createTheme} from '@mui/material';
 
 const App = () => {
   const theme = createTheme({
     palette: {
       primary: {
-        main: "rgba(0, 0, 0, 0.87)",
+        main: '#008060',
+      },
+      secondary: {
+        main: '#FFFFFF',
       },
     },
   });

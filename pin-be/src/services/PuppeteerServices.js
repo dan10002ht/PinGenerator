@@ -6,8 +6,8 @@ export default class PuppeteerServices {
     this.page = null;
   }
   async initBrowser() {
-    this.browser = await puppeteer.launch();
-    this.page = await browser.newPage();
+    this.browser = await puppeteer.launch({headless: true, args: ['--no-sandbox']});
+    this.page = await this.browser.newPage();
   }
   async getSiteByUrl(url) {
     await this.page.goto(url);
@@ -15,12 +15,13 @@ export default class PuppeteerServices {
   async getAllImages() {
     return await this.page.evaluate(() => {
       const images = document.querySelectorAll('img');
-      return [...images].map(x => x.getAttribute('src'));
+
+      return Array.from(images).map((x) => x.getAttribute('src'));
     });
   }
   async getTitle() {
     try {
-      return await this.page.evalute(() => {
+      return await this.page.evaluate(() => {
         const h1 = document.querySelector('h1');
         return h1.textContent.trim();
       });
@@ -29,7 +30,9 @@ export default class PuppeteerServices {
       return '';
     }
   }
-  async initialize(url) {
+  async initialize(
+    url = 'https://viblo.asia/p/kien-truc-huong-su-kien-event-driven-architecture-zXRJ8n2dVGq',
+  ) {
     try {
       await this.initBrowser();
       await this.getSiteByUrl(url);

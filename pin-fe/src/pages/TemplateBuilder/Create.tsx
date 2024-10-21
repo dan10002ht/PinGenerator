@@ -1,39 +1,39 @@
-import React, { useEffect, useRef, useState } from "react";
-import WithMarginTop from "../../components/molecules/WithMarginTop";
-import EditorPanel from "../../components/molecules/EditorPanel";
-import { Box } from "@mui/material";
-import testData from "../../components/organisms/Template/testData.json";
-import Template from "../../components/organisms/Template";
-import useInput from "../../hooks/useInput";
-import Moveable from "react-moveable";
-import EditorPanelContextProvider from "../../contexts/EditorPanelContext";
-import { TYPE_TEXT, getElementByType } from "../../const/default";
-import GeneralOptions from "../../components/molecules/GeneralOptions/GeneralOptions";
-import useCreateApi from "../../hooks/api/useCreateApi";
+import React, {useRef, useState} from 'react';
+import WithMarginTop from '../../components/molecules/WithMarginTop';
+import EditorPanel from '../../components/molecules/EditorPanel';
+import {Box} from '@mui/material';
+import testData from '../../components/organisms/Template/testData.json';
+import Template from '../../components/organisms/Template';
+import useInput from '../../hooks/useInput';
+import Moveable, {OnDrag, OnDragEnd, OnResize, OnResizeEnd, OnRotate} from 'react-moveable';
+import EditorPanelContextProvider from '../../contexts/EditorPanelContext';
+import {TYPE_TEXT, getElementByType} from '../../const/default';
+import GeneralOptions from '../../components/molecules/GeneralOptions/GeneralOptions';
+import useCreateApi from '../../hooks/api/useCreateApi';
+import {IPairKeyValue} from '../../interface.ts';
 
 const Create = () => {
-  const { input, setInput, handleChangeInput, handleChangeComponentSettings } =
-    useInput(testData[0]);
+  const {input, setInput, handleChangeInput, handleChangeComponentSettings} = useInput(testData[0]);
 
-  const { creating, handleCreate } = useCreateApi({
-    url: "/template",
+  const {creating, handleCreate} = useCreateApi({
+    url: '/template',
   });
 
-  const [selectedKey, setSelectedKey] = useState("");
-  const [_, componentIndex] = selectedKey.split("-");
+  const [selectedKey, setSelectedKey] = useState('');
+  const [_, componentIndex] = selectedKey.split('-');
 
-  const handleChangeStyles = ({ key, value }) => {
+  const handleChangeStyles = ({key, value}: IPairKeyValue) => {
     handleChangeComponentSettings({
-      key: "styles",
+      key: 'styles',
       value: {
         [key]: value,
       },
       componentIndex,
     });
   };
-  const handleChangeWrapperStyles = ({ key, value }) => {
+  const handleChangeWrapperStyles = ({key, value}: IPairKeyValue) => {
     handleChangeComponentSettings({
-      key: "wrapperStyles",
+      key: 'wrapperStyles',
       value: {
         [key]: value,
       },
@@ -41,9 +41,9 @@ const Create = () => {
     });
   };
 
-  const handleChangeImageStyles = (key, value) => {
+  const handleChangeImageStyles = (key: string, value: object) => {
     handleChangeComponentSettings({
-      key: "imageStyles",
+      key: 'imageStyles',
       value: {
         [key]: value,
       },
@@ -61,18 +61,18 @@ const Create = () => {
     templateRef.current[key] = el;
   };
 
-  const handleDrag = (e: any) => {
+  const handleDrag = (e: OnDrag) => {
     currentSelectedElement.style.top = `${e.top}px`;
     currentSelectedElement.style.left = `${e.left}px`;
     currentSelectedElement.style.bottom = `${e.bottom}px`;
     currentSelectedElement.style.right = `${e.right}px`;
   };
 
-  const handleDragEnd = (e: any) => {
+  const handleDragEnd = (e: OnDragEnd) => {
     if (!e.lastEvent) return;
     handleChangeComponentSettings({
       componentIndex,
-      key: "wrapperStyles",
+      key: 'wrapperStyles',
       value: {
         top: currentSelectedElement.style.top,
         right: currentSelectedElement.style.right,
@@ -82,7 +82,7 @@ const Create = () => {
     });
   };
 
-  const handleResize = (e: any) => {
+  const handleResize = (e: OnResize) => {
     const [xAxis, yAxis] = e.delta;
     currentSelectedElement.style.width = `${
       parseFloat(currentSelectedElement.style.width) + xAxis
@@ -93,11 +93,11 @@ const Create = () => {
     currentSelectedElement.style.transform = e.drag.transform;
   };
 
-  const handleResizeEnd = (e: any) => {
+  const handleResizeEnd = (e: OnResizeEnd) => {
     if (!e.lastEvent) return;
     handleChangeComponentSettings({
       componentIndex,
-      key: "wrapperStyles",
+      key: 'wrapperStyles',
       value: {
         width: `${e.lastEvent.width}px`,
         height: `${e.lastEvent.height}px`,
@@ -105,10 +105,10 @@ const Create = () => {
     });
   };
 
-  const handleRotate = (e: any) => {
+  const handleRotate = (e: OnRotate) => {
     handleChangeComponentSettings({
       componentIndex,
-      key: "wrapperStyles",
+      key: 'wrapperStyles',
       value: {
         transform: e.drag.transform,
       },
@@ -118,19 +118,16 @@ const Create = () => {
   const handleAddElement = (type: string) => {
     setInput((prev: any) => ({
       ...prev,
-      components: [
-        ...prev.components,
-        getElementByType(type, prev.components.length),
-      ],
+      components: [...prev.components, getElementByType(type, prev.components.length)],
     }));
   };
+
   const handleFocus = (key: string) => {
-    if (
-      templateRef.current[key] &&
-      input.components[key.split("-")[1]]["type"] === TYPE_TEXT
-    )
+    if (templateRef.current[key] && input.components[key.split('-')[1]]['type'] === TYPE_TEXT)
       templateRef.current[key].firstChild.focus();
   };
+
+  console.log({input: JSON.stringify(input)});
 
   return (
     <EditorPanelContextProvider
@@ -151,30 +148,30 @@ const Create = () => {
       }}
     >
       <WithMarginTop>
-        <Box sx={{ display: "flex", height: "100%" }}>
+        <Box sx={{display: 'flex', height: '100%'}}>
           <EditorPanel />
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              alignItems: "center",
-              flex: "1",
-              backgroundColor: "#F8F8F8",
+              display: 'flex',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              alignItems: 'center',
+              flex: '1',
+              backgroundColor: '#F8F8F8',
             }}
           >
             <Box
               sx={{
-                width: "100%",
-                paddingTop: "10px",
-                backgroundColor: "#DDDDDD",
+                width: '100%',
+                paddingTop: '10px',
+                backgroundColor: '#DDDDDD',
               }}
             >
-              <Box sx={{ minHeight: "45px", flexFlow: "wrap" }}>
+              <Box sx={{minHeight: '45px', flexFlow: 'wrap'}}>
                 <GeneralOptions />
               </Box>
             </Box>
-            <Box sx={{ flex: "1", display: "flex", alignItems: "center" }}>
+            <Box sx={{flex: '1', display: 'flex', alignItems: 'center'}}>
               <Moveable
                 ref={moveableRef}
                 target={currentSelectedElement}
@@ -186,7 +183,7 @@ const Create = () => {
                 resizable={true}
                 keepRatio={false}
                 throttleResize={0}
-                renderDirections={["nw", "n", "ne", "w", "e", "sw", "s", "se"]}
+                renderDirections={['nw', 'n', 'ne', 'w', 'e', 'sw', 's', 'se']}
                 rotatable={true}
                 throttleRotate={1}
                 onDrag={handleDrag}
@@ -203,13 +200,13 @@ const Create = () => {
                   setSelectedKey(key);
                   handleFocus(key);
                 }}
-                size={{ width: 1000, height: 1500 }}
+                size={{width: 1000, height: 1500}}
                 scale={0.4}
                 onTextChange={(val: string) =>
                   setInput((prev) => {
                     const components = [...prev.components];
-                    components[componentIndex]["textContent"] = val;
-                    return { ...prev, components };
+                    components[componentIndex as any]['textContent'] = val;
+                    return {...prev, components};
                   })
                 }
               />

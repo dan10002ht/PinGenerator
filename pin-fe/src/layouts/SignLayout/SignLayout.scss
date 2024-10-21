@@ -1,0 +1,106 @@
+.Pin-Sign__Wrapper {
+  height: 100vh;
+  width: 100vw;
+  overflow: auto;
+  position: relative;
+
+  .Pin-Sign__Top,
+  .Pin-Sign__Bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 50vh;
+  }
+  .Pin-Form__TopWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .Pin-Sign__Top {
+    top: 0;
+    position: relative;
+    background: #AEE9D1;
+    .Pin-Sign__Top--Information {
+      color: #008060;
+      max-width: 300px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      gap: 8px;
+      flex-direction: column;
+      .Pin-Sign__Title {
+        font-weight: 600;
+        font-size: 32px;
+      }
+      .Pin-Sign__SubTitle {
+        font-size: 24px;
+      }
+      .Pin-Sign__Description {
+        font-size: 13px;
+      }
+    }
+  }
+
+  .Pin-Sign__Bottom {
+    bottom: 0;
+  }
+
+  .Pin-Sign__Content {
+    position: absolute;
+    left: 0;
+    right: 50%;
+    top: 50%;
+
+    transform: translateY(-50%);
+    z-index: 10;
+    margin: 0 82px 0 120px;
+    .Pin-Form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0px 2px 4px 0px #00000040;
+      padding: 20px;
+      .Pin-Form__Top {
+        display: flex;
+        justify-content: space-between;
+        .Pin-Form__Welcome {
+          &--Primary {
+            color: #008060;
+            font-weight: 600;
+          }
+        }
+        .Pin-Form__SignWrapper {
+          display: flex;
+          flex-direction: column;
+          .Pin-Form__SignLink {
+            text-decoration: none;
+            color: #008060;
+          }
+        }
+      }
+      .Pin-Form__Title {
+        font-size: 32px;
+
+      }
+    }
+  }
+  .Pin-Sign__Decoration {
+    position: absolute;
+    right: 20px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+  }
+  .Form-Input__Wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+}

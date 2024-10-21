@@ -1,25 +1,17 @@
 import { useState } from "react";
 import { fetchAuthenticatedApi } from "../../helpers/api";
+import {ICreateApiProps} from "../../interface.ts";
 
 export default function useCreateApi({
   url,
   defaultState = false,
   fullResp = false,
   catchError = true,
-  successCallback = (_p) => {},
-  errorCallback = (_p) => {},
+  successCallback = () => {},
+  errorCallback = () => {},
   successMsg = "Create successfully",
   errorMsg = "Create failed",
-}: {
-  url: string;
-  defaultState: any;
-  fullResp: boolean;
-  catchError: boolean;
-  successCallback: () => any;
-  errorCallback: () => any;
-  successMsg: string;
-  errorMsg: string;
-}) {
+}: ICreateApiProps) {
   const [creating, setCreating] = useState(defaultState);
 
   const handleCreate = async (data = {}) => {
@@ -41,7 +33,7 @@ export default function useCreateApi({
         console.log(resp.error);
       }
       return fullResp ? resp : resp.success;
-    } catch (e) {
+    } catch (e: any) {
       if (!catchError) throw new Error(e);
       console.log(e);
       console.log(errorMsg);

@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id  Int @id @default(autoincrement())
+  email String @db.VarChar(200)
+  username String? @db.VarChar(100)
+  hashedPassword String?
+  refreshToken String?
+  firstName String?
+  lastName String?
+  avatarUrl String?
+  plan String @db.VarChar(30) @default(value: "free")
+  isSubscribeNews Boolean? @default(value: false)
+  isEmailVerified Boolean @default(value: false)
+  pinCreditLimit Int @default(value: 0)
+  createdAt DateTime @db.Timestamptz(3) @default(now())
+  updatedAt DateTime @updatedAt @db.Timestamptz(3) @default(now())
+  originalTemplates          Template[] @relation("originalTemplates")
+  userTemplates      Template[] @relation("userTemplates")
+}
+
+model Template {
+  id  Int @id @default(autoincrement())
+  usedCount Int @default(value: 0)
+  isDraft Boolean?
+  previewImageUrl String
+  previewImageGeneratedAt DateTime?
+  createdBy Int
+  userId Int
+  originalCreator User @relation("originalTemplates", fields: [createdBy], references: [id])
+  currentUser User @relation("userTemplates", fields: [userId], references: [id])
+  createdAt DateTime @db.Timestamptz(3) @default(now())
+  updatedAt DateTime @updatedAt @db.Timestamptz(3) @default(now())
+  extendedPins Pin[]
+  components Component[] @relation("templateComponents")
+}
+
+model Component {
+  id  Int @id @default(autoincrement())
+  componentType String
+  componentName String
+  textContent String?
+  imageUrl String?
+  wrapperStyles Json?
+  styles Json?
+  pinId Int?
+  imageStyles Json?
+  componentPosition Int
+  templateId Int?
+  isTemplateComponent Boolean
+  createdAt DateTime @db.Timestamptz(3) @default(now())
+  updatedAt DateTime @updatedAt @db.Timestamptz(3) @default(now())
+
+  template Template? @relation("templateComponents" ,fields: [templateId], references: [id])
+  pin Pin? @relation("pinComponents" ,fields: [pinId], references: [id])
+}
+
+model Pin {
+  id  Int @id @default(autoincrement())
+  sourceTemplateId Int
+  position Int
+  sourceTemplate Template @relation(fields: [sourceTemplateId], references: [id])
+  components Component[] @relation("pinComponents")
+}

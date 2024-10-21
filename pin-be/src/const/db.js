@@ -1,12 +1,5 @@
-import serviceAccount from '../../serviceAccount.json';
+import prisma from '../config/prisma';
 
-import * as admin from 'firebase-admin';
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
+const {user: userTable, template: templateTable, component: componentTable, pin: pinTable} = prisma;
 
-import {getFirestore} from 'firebase-admin/firestore';
-
-const db = getFirestore();
-
-export default db;
+export {userTable, templateTable, componentTable, pinTable};

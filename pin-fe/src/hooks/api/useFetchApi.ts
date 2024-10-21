@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import { fetchAuthenticatedApi } from "../../helpers/api";
 import isEmpty from "../../helpers/isEmpty";
+import {IFetchApiProps} from '../../interface.ts';
 
 /**
- * useFetchApi hook for fetch data from api with url
  *
- *
+ * @param url
+ * @param defaultData
+ * @param initLoad
+ * @param presentDataFunc
+ * @param method
+ * @param postData
  */
 export default function useFetchApi({
   url,
@@ -14,18 +19,11 @@ export default function useFetchApi({
   presentDataFunc = null,
   method = "GET",
   postData = {},
-}: {
-  url: string;
-  defaultData?: any;
-  initLoad: boolean;
-  presentDataFunc: any;
-  method: string;
-  postData: object;
-}) {
+}: IFetchApiProps) {
   const [loading, setLoading] = useState(initLoad);
   const [data, setData] = useState(defaultData);
   const [pagination, setPagination] = useState({});
-  const [errors, setErrors] = useState<any>([]);
+  const [errors, setErrors] = useState([]);
   const [fetched, setFetched] = useState(false);
 
   async function fetchApi() {

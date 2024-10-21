@@ -1,31 +1,24 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import defaultRoutes from "./defaultRoutes";
-import AppLayout from "../layouts/AppLayout/AppLayout";
-import NotFound from "../pages/NotFound";
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import defaultRoutes, {noLayoutRoutes} from './defaultRoutes';
+import AppLayout from '../layouts/AppLayout/AppLayout';
 
-const Routing = ({ prefix = "" }) => {
-  const routeGroups = [
-    ...defaultRoutes,
-    {
-      path: "*",
-      component: NotFound,
-    },
-  ];
+const Routing = ({prefix = ''}) => {
+  const routeGroups = [...defaultRoutes];
 
   return (
     <Router>
-      <AppLayout>
-        <Routes>
+      <Routes>
+        <Route element={<AppLayout />}>
           {routeGroups.map((group, index) => (
-            <Route
-              key={index}
-              path={`${prefix}${group.path}`}
-              Component={group.component as any}
-            ></Route>
+            <Route key={index} path={`${prefix}${group.path}`} Component={group.component as any} />
           ))}
-        </Routes>
-      </AppLayout>
+        </Route>
+        <Route>
+          {noLayoutRoutes.map((group, index) => (
+            <Route key={index} path={`${prefix}${group.path}`} Component={group.component as any} />
+          ))}
+        </Route>
+      </Routes>
     </Router>
   );
 };

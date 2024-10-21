@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 /**
  *
@@ -12,21 +12,20 @@ import axios from "axios";
 export async function api({
   url,
   data = {},
-  method = "GET",
+  method = 'GET',
   params = {},
   options = {},
   clientConfig = {
-    baseURL: "http://localhost:5002/api",
+    baseURL: 'http://localhost:4000/api',
     timeout: 60000,
   },
 }: {
-    url: string,
-    data: object,
-    method: string,
-    params: object,
-    options: object,
-    clientConfig: object,
-
+  url: string;
+  data?: object;
+  method?: string;
+  params?: object;
+  options?: object;
+  clientConfig?: object;
 }) {
   const client = axios.create(clientConfig);
   //   const idToken = await auth.currentUser.getIdToken(false);
@@ -34,7 +33,7 @@ export async function api({
     .request({
       ...options,
       headers: {
-        accept: "application/json",
+        accept: 'application/json',
         ...(options.headers || {}),
         // "X-Auth-Token": idToken,
       },
@@ -45,7 +44,6 @@ export async function api({
     })
     .then((res) => res.data);
 }
-
 
 const getAuthenticatedFetchApi = () => {
   const fetchFunction = api;
