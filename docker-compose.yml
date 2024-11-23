@@ -1,0 +1,22 @@
+version: '1'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: pin-be/Dockerfile
+    volumes:
+      - ./pin-be:/app
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+  frontend:
+    build:
+      context: .
+      dockerfile: pin-fe/Dockerfile
+    volumes:
+      - ./pin-fe:/app
+    ports: 
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development

@@ -3,8 +3,6 @@ import cors from 'cors';
 import appConfig from './src/config/appConfig';
 import route from './src/routes';
 import bodyParser from 'body-parser';
-import PuppeteerServices from './src/services/PuppeteerServices';
-import fs from 'fs';
 
 const app = express();
 
@@ -17,11 +15,5 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 route(app);
-
-(async () => {
-  const puppeteer = new PuppeteerServices();
-  const data = await puppeteer.initialize();
-  console.log({data});
-})();
 
 app.listen(appConfig.port, () => console.log('listening on port ' + appConfig.port));

@@ -45,7 +45,7 @@ export const login = async (req, res) => {
     if (!email.trim() || !password.trim())
       return res.status(500).json({error: 'Invalid credentials', success: false});
 
-    const userData = await getUserByField(email, 'email');
+    const userData = await getUserByField(email, 'email', true);
 
     if (!userData)
       return res.status({error: 'This email has not been registered yet', success: false});
@@ -63,7 +63,9 @@ export const login = async (req, res) => {
         data: {...respData},
       });
     }
+    return res.status(500).json({error: "Mismatch data", success: false})
   } catch (e) {
+    console.error(e.message);
     return res.status(500).json({error: e.message, success: false});
   }
 };

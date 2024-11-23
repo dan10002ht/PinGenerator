@@ -22,7 +22,7 @@ export const getUserById = async (id) => {
 export const getUserByField = async (value, key = 'email', getHashed = false) => {
   const userData = await userTable.findFirst({where: {[key]: value}});
   if (!userData) return null;
-  return removeFields(userData, ['hashedPassword', 'password']);
+  return removeFields(userData, [!getHashed && 'hashedPassword', 'password'].filter(Boolean));
 };
 
 /**

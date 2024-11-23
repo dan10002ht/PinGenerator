@@ -10,6 +10,8 @@ export const AuthContextProvider = ({children}: IContextProvider) => {
     defaultData: {},
   });
 
+  console.log({data})
+
   const value = {data};
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

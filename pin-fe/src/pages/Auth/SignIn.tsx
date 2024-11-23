@@ -6,8 +6,14 @@ import {signInInputs} from '../../const/sign/signInput.ts';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {signInSchema} from '../../validations/authValidations.ts';
+import useCreateApi from '../../hooks/api/useCreateApi.ts';
+import pickFields from '../../helpers/utils/pickFields.ts';
 
 const SignIn = () => {
+  const {creating: loggingIn, handleCreate: handleLogin} = useCreateApi({
+    url: '/auth/login',
+    fullResp: true,
+  });
   const {
     register,
     handleSubmit,
@@ -16,8 +22,9 @@ const SignIn = () => {
     resolver: yupResolver(signInSchema),
   });
 
-  const onRegister = (values: object) => {
-    console.log({values, errors});
+  const onRegister = async (values: object) => {
+    const {success, data} = await handleLogin(pickFields(values, ['email', 'password']));
+    console.log({success, data});
   };
 
   const onError = (err) => {
