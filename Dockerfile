@@ -2,12 +2,13 @@ FROM node:20
 
 WORKDIR /app
 
-COPY package.json ./
-
-RUN rm -rf node_modules package-lock.json
-RUN npm install
+RUN apt-get update -y && apt-get install -y openssl
 
 COPY . .
+
+RUN yarn install -f
+
+RUN yarn workspace @pin/be run generate-prisma # Run prisma generate after installing packages
 
 EXPOSE 4000 5173
 

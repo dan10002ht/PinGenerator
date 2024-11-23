@@ -1,22 +1,33 @@
 version: '1'
 services:
-  backend:
+  node:
     build:
       context: .
-      dockerfile: pin-be/Dockerfile
     volumes:
-      - ./pin-be:/app
+      - ./:/app
+      - node_modules:/app/node_modules
     ports:
       - "4000:4000"
-    environment:
-      - NODE_ENV=development
-  frontend:
-    build:
-      context: .
-      dockerfile: pin-fe/Dockerfile
-    volumes:
-      - ./pin-fe:/app
-    ports: 
       - "5173:5173"
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
+      - DATABASE_URL=postgres://danlaanh202:danlaanh202@db:5432/pinGenerator
+    depends_on:
+      - db
+    command: ["yarn", "run", "start-dev"]
+
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: danlaanh202
+      POSTGRES_PASSWORD: danlaanh202
+      POSTGRES_DB: pinGenerator
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+volumes:
+  postgres_data: {}
+  node_modules: {}

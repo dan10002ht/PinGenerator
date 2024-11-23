@@ -1,12 +1,17 @@
 {
   "name": "pingenerator",
   "version": "1.0.0",
+  "private": true,
   "main": ".eslintrc.js",
+  "workspaces": [
+    "packages/*"
+  ],
+  "prisma": {
+    "schema": "./prisma/schema.prisma"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "concurrently \"cd pin-be && npm start\" \"cd pin-fe && npm run dev\"",
-    "start:backend": "cd pin-be && npm start",
-    "start:frontend": "cd pin-fe && npm run dev"
+    "start-dev": "concurrently \"yarn workspace @pin/be start\" \"yarn workspace @pin/fe run dev\""
   },
   "keywords": [],
   "author": "",
@@ -26,5 +31,8 @@
   },
   "dependencies": {
     "concurrently": "^9.1.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.9.5"
   }
 }

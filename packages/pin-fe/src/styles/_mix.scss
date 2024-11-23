@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $breakpoints: (
   'xs': 480px,
   'sm': 768px,
@@ -6,7 +8,7 @@ $breakpoints: (
 );
 
 @mixin mediaQuery($name) {
-  $value: map-get($breakpoints, $name);
+  $value: map.get($breakpoints, $name);
   @if $value {
     @media (max-width: $value) {
       @content;

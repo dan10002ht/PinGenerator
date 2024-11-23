@@ -1,5 +1,5 @@
 {
-  "name": "pin-fe",
+  "name": "@pin/fe",
   "private": true,
   "version": "0.0.0",
   "type": "module",

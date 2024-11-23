@@ -2,6 +2,7 @@ import './SignLayout.scss';
 import {Link} from 'react-router-dom';
 import {ButtonBase, Divider, styled} from '@mui/material';
 import GoogleIcon from '../../components/atoms/Icon/GoogleIcon.tsx';
+import PropTypes from 'prop-types';
 
 const CustomButton = styled(ButtonBase)(({theme}) => ({
   '&': {
@@ -70,6 +71,9 @@ const SignLayout = ({children, isSignUp = false}) => {
   );
 };
 
-SignLayout.propTypes = {};
+SignLayout.propTypes = {
+  children: PropTypes.node,
+  isSignUp: PropTypes.bool,
+};
 
 export default SignLayout;

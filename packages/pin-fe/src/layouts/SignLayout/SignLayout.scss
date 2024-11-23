@@ -10,6 +10,9 @@
     left: 0;
     right: 0;
     height: 50vh;
+    @include mediaQuery("md") {
+      display: none;
+    }
   }
   .Pin-Form__TopWrapper {
     display: flex;
@@ -57,11 +60,15 @@
     z-index: 10;
     margin: 0 82px 0 120px;
 
-    @include responsiveFor("sm") {
+    @include mediaQuery("md") {
       margin: 0;
-      left: 0;
-      right: 0;
       transform: unset;
+      position: static;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
     }
 
     .Pin-Form {
@@ -70,8 +77,14 @@
       gap: 24px;
       background: white;
       border-radius: 12px;
-      box-shadow: 0px 2px 4px 0px #00000040;
+      box-shadow: 0 2px 4px 0 #00000040;
       padding: 20px;
+
+      @include mediaQuery("md") {
+        flex: 1;
+        box-shadow: none;
+      }
+
       .Pin-Form__Top {
         display: flex;
         justify-content: space-between;
@@ -103,6 +116,9 @@
     display: flex;
     align-items: center;
     z-index: 10;
+    @include mediaQuery("md") {
+      display: none;
+    }
   }
   .Form-Input__Wrapper {
     display: flex;
