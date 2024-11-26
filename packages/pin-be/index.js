@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import appConfig from './src/config/appConfig';
 import route from './src/routes';
 import bodyParser from 'body-parser';
 
@@ -16,4 +15,4 @@ app.use(bodyParser.json());
 
 route(app);
 
-app.listen(appConfig.port, () => console.log('listening on port ' + appConfig.port));
+app.listen(process.env.PORT, () => console.log('listening on port ' + appConfig.port));

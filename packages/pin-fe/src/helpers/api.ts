@@ -24,7 +24,7 @@ export async function api({
   data?: object;
   method?: string;
   params?: object;
-  options?: object;
+  options?: any;
   clientConfig?: object;
 }) {
   const client = axios.create(clientConfig);
@@ -47,7 +47,7 @@ export async function api({
 
 const getAuthenticatedFetchApi = () => {
   const fetchFunction = api;
-  return async (uri: string, options: object = {}) => {
+  return async (uri: string, options: {body?: any; method?: string} = {}) => {
     return fetchFunction({
       url: uri,
       data: options.body,
