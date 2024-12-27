@@ -10,7 +10,7 @@ import EditorPanelContextProvider from '../../contexts/EditorPanelContext';
 import {TYPE_TEXT, getElementByType} from '../../const/default';
 import GeneralOptions from '../../components/molecules/GeneralOptions/GeneralOptions';
 import useCreateApi from '../../hooks/api/useCreateApi';
-import {IPairKeyValue} from '../../interface.ts';
+import {IPairKeyValue} from '../../interfaces/interface.ts';
 
 const Create = () => {
   const {input, setInput, handleChangeInput, handleChangeComponentSettings} = useInput(testData[0]);
@@ -196,7 +196,7 @@ const Create = () => {
               <Template
                 template={input}
                 setComponentRef={setComponentRef}
-                onSelectComponent={(key: any) => {
+                onSelectComponent={(key: string) => {
                   setSelectedKey(key);
                   handleFocus(key);
                 }}
@@ -205,7 +205,7 @@ const Create = () => {
                 onTextChange={(val: string) =>
                   setInput((prev) => {
                     const components = [...prev.components];
-                    components[componentIndex as any]['textContent'] = val;
+                    components[componentIndex]['textContent'] = val;
                     return {...prev, components};
                   })
                 }

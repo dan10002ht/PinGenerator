@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import {ReactNode} from 'react';
 
 export interface IComponentWithChildren {
   children: ReactNode;
@@ -21,9 +21,7 @@ export interface IDrawerContextValue {
   hasDrawer: any;
 }
 
-export interface IAuthContext {
-
-}
+export interface IAuthContext {}
 
 export interface IGenerateContextValue {}
 export interface ITemplateContextValue {}
@@ -44,16 +42,4 @@ export interface IPairKeyValue {
   value: any;
 }
 
-
-export interface IFetchApiProps {
-  url: string;
-  defaultData?: any[] | object;
-  initLoad?: boolean;
-  presentDataFunc?: any;
-  method?: string;
-  postData?: object;
-}
-
-export interface IAppContext {
-
-}
+export interface IAppContext {}

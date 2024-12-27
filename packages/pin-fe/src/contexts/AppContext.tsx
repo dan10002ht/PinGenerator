@@ -1,5 +1,5 @@
 import {createContext, useState} from 'react';
-import {IContextProvider, IAppContext} from '../interface';
+import {IContextProvider, IAppContext} from '../interfaces/interface.ts';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

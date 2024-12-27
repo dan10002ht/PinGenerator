@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { fetchAuthenticatedApi } from "../../helpers/api";
-import {ICreateApiProps} from "../../interface.ts";
+import {useState} from 'react';
+import {fetchAuthenticatedApi} from '../../helpers/api';
+import {ICreateApiProps} from '../../interfaces/interface.ts';
 
 export default function useCreateApi({
   url,
@@ -9,8 +9,8 @@ export default function useCreateApi({
   catchError = true,
   successCallback = () => {},
   errorCallback = () => {},
-  successMsg = "Create successfully",
-  errorMsg = "Create failed",
+  successMsg = 'Create successfully',
+  errorMsg = 'Create failed',
 }: ICreateApiProps) {
   const [creating, setCreating] = useState(defaultState);
 
@@ -18,7 +18,7 @@ export default function useCreateApi({
     try {
       setCreating(true);
       const resp = await fetchAuthenticatedApi(url, {
-        method: "POST",
+        method: 'POST',
         body: data,
       });
       if (resp.success) {
@@ -37,10 +37,10 @@ export default function useCreateApi({
       if (!catchError) throw new Error(e);
       console.log(e);
       console.log(errorMsg);
-      return fullResp ? { success: false, error: e.message } : false;
+      return fullResp ? {success: false, error: e.message} : false;
     } finally {
       setCreating(false);
     }
   };
-  return { creating, handleCreate };
+  return {creating, handleCreate};
 }

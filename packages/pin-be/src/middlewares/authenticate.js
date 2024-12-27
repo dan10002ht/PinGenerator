@@ -9,6 +9,7 @@ import express from 'express';
  * @returns {*}
  */
 export default function authMiddleware(req, res, next) {
+  console.log(req.cookies);
   const accessToken = req.cookies.get('accessToken');
   if (accessToken) {
     const validAccessToken = isValidToken(accessToken);

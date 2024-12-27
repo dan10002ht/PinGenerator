@@ -8,8 +8,10 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import {signInSchema} from '../../validations/authValidations.ts';
 import useCreateApi from '../../hooks/api/useCreateApi.ts';
 import pickFields from '../../helpers/utils/pickFields.ts';
+import {useNavigate} from 'react-router-dom';
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const {creating: loggingIn, handleCreate: handleLogin} = useCreateApi({
     url: '/auth/login',
     fullResp: true,
@@ -25,6 +27,9 @@ const SignIn = () => {
   const onRegister = async (values: object) => {
     const {success, data} = await handleLogin(pickFields(values, ['email', 'password']));
     console.log({success, data});
+    if (success) {
+      navigate('/');
+    }
   };
 
   const onError = (err) => {

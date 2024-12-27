@@ -1,4 +1,3 @@
-import {yupResolver} from '@hookform/resolvers/yup';
 import yup from './yupGlobal.ts';
 
 export const signUpSchema = yup.object().shape({

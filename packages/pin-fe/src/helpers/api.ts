@@ -18,6 +18,7 @@ export async function api({
   clientConfig = {
     baseURL: `${import.meta.env.VITE_API_URL}/api`,
     timeout: 60000,
+    withCredentials: true,
   },
 }: {
   url: string;
@@ -28,14 +29,12 @@ export async function api({
   clientConfig?: object;
 }) {
   const client = axios.create(clientConfig);
-  //   const idToken = await auth.currentUser.getIdToken(false);
   return client
     .request({
       ...options,
       headers: {
         accept: 'application/json',
         ...(options.headers || {}),
-        // "X-Auth-Token": idToken,
       },
       url,
       method,

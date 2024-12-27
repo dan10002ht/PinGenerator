@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { fetchAuthenticatedApi } from "../../helpers/api";
-import isEmpty from "../../helpers/isEmpty";
-import {IFetchApiProps} from '../../interface.ts';
+import {useEffect, useState} from 'react';
+import {fetchAuthenticatedApi} from '../../helpers/api';
+import isEmpty from '../../helpers/isEmpty';
+import {IFetchApiProps} from '../../interfaces/network/api.interface.ts';
 
 /**
  *
  * @param url
  * @param defaultData
  * @param initLoad
- * @param presentDataFunc
+ * @param presentData
  * @param method
  * @param postData
  */
@@ -16,8 +16,8 @@ export default function useFetchApi({
   url,
   defaultData = [],
   initLoad = true,
-  presentDataFunc = null,
-  method = "GET",
+  presentData = null,
+  method = 'GET',
   postData = {},
 }: IFetchApiProps) {
   const [loading, setLoading] = useState(initLoad);
@@ -27,25 +27,23 @@ export default function useFetchApi({
   const [fetched, setFetched] = useState(false);
 
   async function fetchApi() {
-    if (url === "") {
+    if (url === '') {
       return;
     }
     setLoading(true);
     try {
       const resp =
-        method === "GET"
+        method === 'GET'
           ? await fetchAuthenticatedApi(url)
           : await fetchAuthenticatedApi(url, {
               method,
               body: postData,
             });
       if (resp.data) {
-        const newData = presentDataFunc
-          ? presentDataFunc(resp.data)
-          : resp.data;
+        const newData = presentData ? presentData(resp.data) : resp.data;
         if (!isEmpty(defaultData)) {
           setData((prev: any) => {
-            return { ...prev, ...newData };
+            return {...prev, ...newData};
           });
         } else {
           setData(newData);
@@ -65,19 +63,17 @@ export default function useFetchApi({
   }
 
   async function refetch(url: string) {
-    if (url === "") {
+    if (url === '') {
       return;
     }
     try {
       setLoading(true);
       const resp = await fetchAuthenticatedApi(url);
       if (resp.data) {
-        const newData = presentDataFunc
-          ? presentDataFunc(resp.data)
-          : resp.data;
+        const newData = presentData ? presentData(resp.data) : resp.data;
         if (!isEmpty(defaultData)) {
           setData((prev: any) => {
-            return { ...prev, ...newData };
+            return {...prev, ...newData};
           });
         } else {
           setData(newData);

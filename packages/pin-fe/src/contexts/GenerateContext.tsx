@@ -1,5 +1,5 @@
 import {createContext} from 'react';
-import {IContextProvider, IGenerateContextValue} from '../interface';
+import {IContextProvider, IGenerateContextValue} from '../interfaces/interface.ts';
 
 export const GenerateContext = createContext<IGenerateContextValue>({});
 

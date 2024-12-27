@@ -1,16 +1,24 @@
 import {createContext} from 'react';
-import {IContextProvider, IAuthContext} from '../interface';
+import {IContextProvider, IAuthContext} from '../interfaces/interface.ts';
 import useFetchApi from '../hooks/api/useFetchApi.ts';
+import {isEmpty} from '../helpers/utils/isEmpty.ts';
 
 export const AuthContext = createContext<IAuthContext>({});
 
 export const AuthContextProvider = ({children}: IContextProvider) => {
-  const {data} = useFetchApi({
+  const {data, fetched} = useFetchApi({
     url: '/user',
     defaultData: {},
   });
 
-  console.log({data})
+  if (
+    fetched &&
+    isEmpty(data) &&
+    !['/auth/login', '/auth/register'].includes(window.location.pathname)
+  ) {
+    window.location.href = '/auth/login';
+    return null;
+  }
 
   const value = {data};
 

@@ -7,17 +7,23 @@ import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {signUpSchema} from '../../validations/authValidations.ts';
 import useCreateApi from '../../hooks/api/useCreateApi.ts';
+import {useNavigate} from 'react-router-dom';
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const {creating, handleCreate} = useCreateApi({
     url: '/auth/register',
   });
+
   const {register, handleSubmit} = useForm({
     resolver: yupResolver(signUpSchema),
   });
 
-  const onRegister = (data: object) => {
-    handleCreate(data);
+  const onRegister = async (data: object) => {
+    const success = await handleCreate(data);
+    if (success) {
+      navigate('/auth/login');
+    }
   };
 
   return (

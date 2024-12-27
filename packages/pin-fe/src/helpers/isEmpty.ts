@@ -1,7 +1,3 @@
-
-export default function isEmpty(obj = {}) {
-  return (
-    [Object, Array].includes(obj.constructor as any) &&
-    !Object.entries(obj).length
-  );
+export default function isEmpty(obj: ObjectConstructor = {}) {
+  return [Object, Array].includes(obj.constructor) && !Object.entries(obj).length;
 }

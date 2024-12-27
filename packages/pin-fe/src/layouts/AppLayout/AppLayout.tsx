@@ -1,4 +1,4 @@
-import {IHomePage} from '../../interface';
+import {IHomePage} from '../../interfaces/interface.ts';
 import TopBar from './TopBar';
 import DrawerContextProvider from '../../contexts/DrawerContext';
 

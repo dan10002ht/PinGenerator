@@ -1,5 +1,5 @@
 import {createContext} from 'react';
-import {IContextProvider, ITemplateContextValue} from '../interface';
+import {IContextProvider, ITemplateContextValue} from '../interfaces/interface.ts';
 
 export const TemplateContext = createContext<ITemplateContextValue>({});
 

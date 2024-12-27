@@ -1,5 +1,5 @@
 import {createContext, useState} from 'react';
-import {IContextProvider, IDrawerContextValue} from '../interface';
+import {IContextProvider, IDrawerContextValue} from '../interfaces/interface.ts';
 import {useLocation} from 'react-router-dom';
 
 export const DrawerContext = createContext<IDrawerContextValue>({});
