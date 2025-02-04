@@ -6,7 +6,7 @@ import {isEmpty} from '../helpers/utils/isEmpty.ts';
 export const AuthContext = createContext<IAuthContext>({});
 
 export const AuthContextProvider = ({children}: IContextProvider) => {
-  const {data, fetched} = useFetchApi({
+  const {data, fetched, refetch} = useFetchApi({
     url: '/user',
     defaultData: {},
   });
@@ -20,7 +20,7 @@ export const AuthContextProvider = ({children}: IContextProvider) => {
     return null;
   }
 
-  const value = {data};
+  const value = {data, fetchUser: refetch};
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

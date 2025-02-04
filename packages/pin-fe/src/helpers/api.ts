@@ -1,14 +1,5 @@
 import axios from 'axios';
 
-/**
- *
- * @param url
- * @param data
- * @param method
- * @param params
- * @param options
- * @param clientConfig
- */
 export async function api({
   url,
   data = {},
@@ -28,7 +19,10 @@ export async function api({
   options?: any;
   clientConfig?: object;
 }) {
+  console.log({options});
+  
   const client = axios.create(clientConfig);
+  
   return client
     .request({
       ...options,

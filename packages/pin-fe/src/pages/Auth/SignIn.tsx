@@ -9,8 +9,11 @@ import {signInSchema} from '../../validations/authValidations.ts';
 import useCreateApi from '../../hooks/api/useCreateApi.ts';
 import pickFields from '../../helpers/utils/pickFields.ts';
 import {useNavigate} from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext.tsx';
 
 const SignIn = () => {
+  const {fetchUser} = useContext(AuthContext)
   const navigate = useNavigate();
   const {creating: loggingIn, handleCreate: handleLogin} = useCreateApi({
     url: '/auth/login',
@@ -27,6 +30,7 @@ const SignIn = () => {
   const onRegister = async (values: object) => {
     const {success, data} = await handleLogin(pickFields(values, ['email', 'password']));
     console.log({success, data});
+    await fetchUser()
     if (success) {
       navigate('/');
     }

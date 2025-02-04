@@ -10,6 +10,11 @@ import express from 'express';
  */
 export default function authMiddleware(req, res, next) {
   console.log(req.cookies);
+
+  if(!req.cookies) {
+    return res.status(403).json({success: false, error: 'No access token provided'});
+  }
+  
   const accessToken = req.cookies.get('accessToken');
   if (accessToken) {
     const validAccessToken = isValidToken(accessToken);
@@ -25,7 +30,7 @@ export default function authMiddleware(req, res, next) {
 
       const newAccessToken = generateToken({_id: validRefreshToken._id});
 
-      res.cookie('refreshToken', newAccessToken, {httpOnly: true});
+      res.cookie('refreshToken', newAccessToken, {httpOnly: true, sameSite: "None"});
       req['_userId'] = validRefreshToken._id;
       return next();
     }

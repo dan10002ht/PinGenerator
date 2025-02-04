@@ -62,13 +62,13 @@ export default function useFetchApi({
     }
   }
 
-  async function refetch(url: string) {
-    if (url === '') {
+  async function refetch(apiUrl: string = url) {
+    if (apiUrl === '') {
       return;
     }
     try {
       setLoading(true);
-      const resp = await fetchAuthenticatedApi(url);
+      const resp = await fetchAuthenticatedApi(apiUrl);
       if (resp.data) {
         const newData = presentData ? presentData(resp.data) : resp.data;
         if (!isEmpty(defaultData)) {
