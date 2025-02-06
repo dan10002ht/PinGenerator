@@ -4,14 +4,6 @@ import { SketchPicker } from "react-color";
 import useClickOutside from "../../../hooks/useClickOutside";
 import { createPortal } from "react-dom";
 
-/**
- *
- * @param {function} handlePick
- * @param {string} initialColor
- * @param {boolean} isSelect
- *
- * @returns {Element}
- */
 const SingleColorPicker = ({
   handlePick,
   selectedColor,

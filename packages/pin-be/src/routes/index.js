@@ -12,6 +12,7 @@ function route(app) {
   router.use('/template', templateRoutes);
   router.use('/auth', authRoutes);
   router.use('/user', userRoutes);
+  // router.get("*", (req, res) => res.status(404).json({success: false, message: 'Page not found'}));
 }
 
 export default route;

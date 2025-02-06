@@ -13,4 +13,12 @@ const CustomButton = styled(ButtonBase)(({theme}) => ({
   }
 }))
 
-export default CustomButton;
+const Button = ({children, ...props}) => {
+  return (
+    <CustomButton {...props}>
+      {children}
+    </CustomButton>
+  );
+}
+
+export default Button;

@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "npx kill-port 5173 && npx kill-port 4000 && concurrently \"yarn workspace @pin/be start\" \"yarn workspace @pin/fe run dev\""
+    "start-dev": "npx kill-port 5173 && npx kill-port 4000 && concurrently \"yarn workspace @pin/be start\" \"HTTPS=true SSL_CRT_FILE=localhost.pem SSL_KEY_FILE=localhost-key.pem yarn workspace @pin/fe run dev\""
   },
   "keywords": [],
   "author": "",

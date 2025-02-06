@@ -30,7 +30,7 @@ export default function authMiddleware(req, res, next) {
 
       const newAccessToken = generateToken({_id: validRefreshToken._id});
 
-      res.cookie('refreshToken', newAccessToken, {httpOnly: true, sameSite: "None"});
+      res.cookie('refreshToken', newAccessToken, {httpOnly: true, sameSite: "None", secure: true});
       req['_userId'] = validRefreshToken._id;
       return next();
     }

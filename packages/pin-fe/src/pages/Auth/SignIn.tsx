@@ -1,7 +1,7 @@
 import SignLayout from '../../layouts/SignLayout/SignLayout.tsx';
 import {FormControl, Box} from '@mui/material';
-import CustomInput from '../../components/atoms/CustomInput/CustomInput.tsx';
-import CustomButton from '../../components/atoms/CustomButton/CustomButton.tsx';
+import TextField from '../../components/atoms/TextField/TextField.tsx';
+import Button from '../../components/atoms/Button/Button.tsx';
 import {signInInputs} from '../../const/sign/signInput.ts';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -23,18 +23,18 @@ const SignIn = () => {
     register,
     handleSubmit,
     formState: {errors},
-  } = useForm({
-    resolver: yupResolver(signInSchema),
-  });
+  } = useForm();
 
   const onRegister = async (values: object) => {
+    console.log({values});
+    
     const {success, data} = await handleLogin(pickFields(values, ['email', 'password']));
     console.log({success, data});
     await fetchUser()
     if (success) {
       navigate('/');
     }
-  };
+  };  
 
   const onError = (err) => {
     console.log(err);
@@ -49,12 +49,12 @@ const SignIn = () => {
               <label htmlFor={x.key}>
                 {[x.label, x.isRequired && '*'].filter(Boolean).join(' ')}
               </label>
-              <CustomInput fullWidth placeholder={x.label} {...register(x.key)} />
+              <TextField fullWidth placeholder={x.label} {...register(x.key)} />
             </Box>
           ))}
-          <CustomButton type="submit" color="primary">
+          <Button type="submit" color="primary">
             Sign in
-          </CustomButton>
+          </Button>
         </FormControl>
       </Box>
     </SignLayout>

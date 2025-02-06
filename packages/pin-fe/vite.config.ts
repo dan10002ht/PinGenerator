@@ -1,6 +1,7 @@
 import {defineConfig} from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
+import fs from 'fs';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -19,6 +20,10 @@ export default defineConfig({
   },
   server: {
     host: true,
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, '../../localhost-key.pem')),
+      cert: fs.readFileSync(path.resolve(__dirname, '../../localhost.pem')),
+    },
     port: 5173,
   },
 });

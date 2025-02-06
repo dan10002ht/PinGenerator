@@ -58,8 +58,8 @@ export const login = async (req, res) => {
     const accessToken = generateToken({_id: userData.id}, '2h');
 
     if (isMatch) {
-      res.cookie('refreshToken', refreshToken, {httpOnly: true, sameSite: 'None'});
-      res.cookie('accessToken', accessToken, {httpOnly: true, sameSite: 'None'});
+      res.cookie('refreshToken', refreshToken, {httpOnly: true, sameSite: 'None', secure: true});
+      res.cookie('accessToken', accessToken, {httpOnly: true, sameSite: 'None', secure: true});
       return res.status(200).json({
         success: true,
         data: {...respData},

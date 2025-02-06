@@ -4,7 +4,7 @@ import authMiddleware from '../middlewares/authenticate';
 
 const router = new Router();
 
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
 router.get('/', userController.get);
 

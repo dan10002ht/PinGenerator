@@ -1,6 +1,6 @@
 import {alpha, InputBase, styled} from '@mui/material';
 
-const CustomInput = styled(InputBase)(({ theme }) => ({
+const TextField = styled(InputBase)(({ theme }) => ({
   'label + &': {
     marginTop: 0,
   },
@@ -16,7 +16,6 @@ const CustomInput = styled(InputBase)(({ theme }) => ({
       'background-color',
       'box-shadow',
     ]),
-    // Use the system font instead of the default Roboto font.
     fontFamily: [
       '-apple-system',
       'BlinkMacSystemFont',
@@ -40,4 +39,4 @@ const CustomInput = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default CustomInput;
+export default TextField;

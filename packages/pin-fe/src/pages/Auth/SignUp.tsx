@@ -1,7 +1,7 @@
 import SignLayout from '../../layouts/SignLayout/SignLayout.tsx';
 import {Box, FormControl} from '@mui/material';
-import CustomInput from '../../components/atoms/CustomInput/CustomInput.tsx';
-import CustomButton from '../../components/atoms/CustomButton/CustomButton.tsx';
+import CustomInput from '../../components/atoms/TextField/TextField.tsx';
+import CustomButton from '../../components/atoms/Button/Button.tsx';
 import {signUpInputs} from '../../const/sign/signInput.ts';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';

@@ -19,34 +19,37 @@ export async function api({
   options?: any;
   clientConfig?: object;
 }) {
-  console.log({options});
-  
   const client = axios.create(clientConfig);
+
+  const requestProps = {
+    ...options,
+    headers: {
+      accept: 'application/json',
+      ...(options.headers || {}),
+    },
+    url,
+    method,
+    data,
+    params,
+  }
+
+  console.log({requestProps});
+  
   
   return client
-    .request({
-      ...options,
-      headers: {
-        accept: 'application/json',
-        ...(options.headers || {}),
-      },
-      url,
-      method,
-      data,
-      params,
-    })
+    .request(requestProps)
     .then((res) => res.data);
 }
 
 const getAuthenticatedFetchApi = () => {
   const fetchFunction = api;
-  return async (uri: string, options: {body?: any; method?: string} = {}) => {
-    return fetchFunction({
+  return (uri: string, options: {body?: any; method?: string} = {}) => 
+    fetchFunction({
       url: uri,
       data: options.body,
       method: options.method,
     });
-  };
+
 };
 
 export const fetchAuthenticatedApi = getAuthenticatedFetchApi();
